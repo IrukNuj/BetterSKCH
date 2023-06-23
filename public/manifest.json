@@ -1,12 +1,19 @@
 {
-  "name": "ChromeExtensionTemplateForDeno",
-  "description": "ChromeExtensionTemplateForDeno",
+  "name": "ここにタイトルを挿入",
+  "description": "ここにタイトルを挿入",
   "version": "0.1",
+
   "manifest_version": 3,
-  "action": {},
-  "permissions": [],
+  "options_ui": {
+    "page": "options.html"
+  },
+  "permissions": ["activeTab", "storage"],
   "background": {
     "service_worker": "background.js"
+  },
+  "action": {
+    "default_title": "ここにタイトルを挿入",
+    "default_popup": "popup.html"
   },
   "content_scripts": [
     {
