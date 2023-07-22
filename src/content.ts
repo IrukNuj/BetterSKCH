@@ -25,19 +25,34 @@ const removeElements = (elements: NodeListOf<HTMLElement>): void => {
 
 const main = (): void => {
   const malePosts = document.querySelectorAll<HTMLElement>('.gender1'); //https://developer.hatenastaff.com/entry/2020/12/12/121212
-  const femalePosts = document.querySelectorAll<HTMLElement>(
-    '.gender2, .gender3',
-  );
+  const femalePosts = document.querySelectorAll<HTMLElement>('.gender2');
+  const nekamaPosts = document.querySelectorAll<HTMLElement>('.gender3');
+
   const autopagerizePageSeparator = document.querySelectorAll<HTMLElement>(
     '.autopagerize_page_separator, .autopagerize_link, .autopagerize_page_info',
   );
   const ads = document.querySelectorAll<HTMLElement>('.ad');
 
+  // chrome.storage.local.get(
+  //   ['isRemoveMale', 'isRemoveFemale', 'isRemoveNekama'],
+  //   (values) => {
+  //     console.log(values);
+  //     if (values.isRemoveMale) removeElements(malePosts);
+  //     if (values.isRemoveFemale) removeElements(femalePosts);
+  //     if (values.isRemoveNekama) removeElements(nekamaPosts);
+  //   },
+  // );
+
   removeElements(malePosts);
+  // if (values.isRemoveFemale) removeElements(femalePosts);
+  removeElements(nekamaPosts);
+
   removeElements(ads);
   removeElements(autopagerizePageSeparator);
 
-  femalePosts.forEach((e, count) => {
+  const formedPosts = document.querySelectorAll<HTMLElement>('.post');
+
+  formedPosts.forEach((e, count) => {
     e.classList.remove('first', 'end');
 
     switch (count % ONE_LINE_COUNT) {
