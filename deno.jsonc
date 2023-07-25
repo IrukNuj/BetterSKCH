@@ -17,6 +17,9 @@
     }
   },
   "compilerOptions" :  {
+    "jsx": "react",
+    "jsxFactory": "React.createElement",
+    "jsxFragmentFactory": "React.Fragment",
     "lib": [ "dom" ,  "dom.iterable" ,  "dom.asynciterable" ,  "deno.ns" ],
     "types": [
       "https://unpkg.com/chrome-types@0.1.153/index.d.ts"

@@ -1,11 +1,4 @@
-// chrome.runtime.onMessage.addListener((_message, _sender, sendResponse) => {
-//   alert(`Hello Chrome Extension!\nThis page title : ${document.title}`);
-//   sendResponse();
-//   return true;
-// });
-
-// const AD_SCRIPT_SRC =
-//   'https://adm.shinobi.jp/s/2aa1bd746a9c3f5d6208776028f3c934';
+import insertPopupForm from './form.ts';
 
 const ONE_LINE_COUNT = 3;
 
@@ -13,19 +6,11 @@ const removeElements = (elements: NodeListOf<HTMLElement>): void => {
   elements.forEach((e) => e.remove());
 };
 
-// const insertAds = () => {
-//   const posts = document.getElementById('posts');
-//   const newAd = document.createElement('script');
-
-//   newAd.src = AD_SCRIPT_SRC;
-//   newAd.type = 'text/javascript';
-//   newAd.async = true;
-//   posts?.appendChild<HTMLElement>(newAd);
-// };
+const form = chrome.runtime.getURL('../public/form.html');
 
 const main = (): void => {
   const malePosts = document.querySelectorAll<HTMLElement>('.gender1'); //https://developer.hatenastaff.com/entry/2020/12/12/121212
-  const femalePosts = document.querySelectorAll<HTMLElement>('.gender2');
+  // const femalePosts = document.querySelectorAll<HTMLElement>('.gender2');
   const nekamaPosts = document.querySelectorAll<HTMLElement>('.gender3');
 
   const autopagerizePageSeparator = document.querySelectorAll<HTMLElement>(
@@ -53,8 +38,11 @@ const main = (): void => {
   const formedPosts = document.querySelectorAll<HTMLElement>('.post');
 
   formedPosts.forEach((e, count) => {
-    e.classList.remove('first', 'end');
+    const icon = e.querySelector('img');
+    const iconOriginalSrc = icon ? icon.getAttribute('data-original') : '';
+    if (iconOriginalSrc) icon?.setAttribute('src', iconOriginalSrc);
 
+    e.classList.remove('first', 'end');
     switch (count % ONE_LINE_COUNT) {
       case 0:
         e.classList.add('first');
@@ -66,5 +54,6 @@ const main = (): void => {
   });
 };
 
+self.addEventListener('load', insertPopupForm);
 self.addEventListener('load', main);
 self.addEventListener('GM_AutoPagerizeNextPageLoaded', main);
