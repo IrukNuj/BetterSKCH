@@ -1,8 +1,14 @@
 import loadDataFromLocalStorage from './storage.ts';
 import { attachButtonBaseStyle, attachFormContainerStyle } from './style.ts';
-import { DisplaySettings, Gender } from './types.ts';
+import {
+  DisplaySetting,
+  DisplaySettingKey,
+  DisplaySettings,
+  Gender,
+} from './types.ts';
 
 const allGender: Gender[] = ['男性', '女性', '不明'];
+
 const defaultDisplaySetting = {
   isMaleDisplay: true,
   isFemaleDisplay: true,
@@ -12,15 +18,14 @@ const defaultDisplaySetting = {
 // これほんと汚い
 const genderToDisplaySetting = (
   gender: Gender,
-  displaySettings: DisplaySettings,
-) => {
+): DisplaySettingKey => {
   switch (gender) {
     case '男性':
-      return displaySettings.isMaleDisplay;
+      return 'isMaleDisplay';
     case '女性':
-      return displaySettings.isFemaleDisplay;
+      return 'isFemaleDisplay';
     case '不明':
-      return displaySettings.isNekamaDisplay;
+      return 'isNekamaDisplay';
   }
 };
 
@@ -40,13 +45,11 @@ const createPopupForm = () => {
     button.type = 'button';
     button.name = 'gender';
     button.value = gender;
-    attachButtonBaseStyle(button, gender);
+    const currentGenderSettingKey = genderToDisplaySetting(gender);
+    const isAlreadySelected = !currentDisplayOption[currentGenderSettingKey];
 
-    const isAlreadySelected = !genderToDisplaySetting(
-      gender,
-      currentDisplayOption,
-    );
     if (isAlreadySelected) button.classList.add('selected');
+    attachButtonBaseStyle(button, gender);
 
     button.addEventListener('click', () => {
       if (button.classList.contains('selected')) {
@@ -63,7 +66,7 @@ const createPopupForm = () => {
 
   const submitButton = document.createElement('button');
   submitButton.type = 'submit';
-  submitButton.textContent = 'Submit';
+  submitButton.textContent = '表示をきりかえる';
   form.appendChild(submitButton);
 
   form.addEventListener('submit', (event) => {
@@ -88,12 +91,15 @@ const createPopupForm = () => {
     const formattedOptions = defaultDisplaySetting;
 
     selectedOptions.forEach((gender) => {
-      genderToDisplaySetting(gender, formattedOptions);
+      const selectedGenderKey = genderToDisplaySetting(gender);
+      formattedOptions[selectedGenderKey] = false;
     });
 
     // 選択項目をlocalStorageに保存
     localStorage.setItem('displaySettings', JSON.stringify(formattedOptions));
     console.log('Data saved to localStorage:', formattedOptions);
+
+    location.reload();
   });
 
   formContainer.appendChild(form);
