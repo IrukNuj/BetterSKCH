@@ -1,4 +1,4 @@
-import { Gender } from './form.ts';
+import { Gender } from './types.ts';
 
 const resetButtonStyle = (button: HTMLInputElement) => {
   button.style.backgroundColor = 'transparent';
@@ -9,7 +9,10 @@ const resetButtonStyle = (button: HTMLInputElement) => {
   button.style.appearance = 'none';
 };
 
-const attachButtonBaseStyle = (button: HTMLInputElement, gender: Gender) => {
+export function attachButtonBaseStyle(
+  button: HTMLInputElement,
+  gender: Gender,
+) {
   resetButtonStyle(button);
 
   button.style.display = 'inline-block';
@@ -33,6 +36,9 @@ const attachButtonBaseStyle = (button: HTMLInputElement, gender: Gender) => {
     case '不明':
       button.style.background = 'linear-gradient(#5b6e78, #789094)';
   }
-};
+}
 
-export default attachButtonBaseStyle;
+export function attachFormContainerStyle(formContainer: HTMLDivElement) {
+  formContainer.style.position = 'relative';
+  formContainer.style.width = '80%';
+}

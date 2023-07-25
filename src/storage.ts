@@ -1,6 +1,6 @@
 import { DisplaySettings } from './types.ts';
 
-export type StorageKeys = 'displaySettings';
+type StorageKeys = 'displaySettings';
 
 const loadDataFromLocalStorage = (key: StorageKeys): DisplaySettings => {
   const data = localStorage.getItem(key);

@@ -1,8 +1,6 @@
 import loadDataFromLocalStorage from './storage.ts';
-import attachButtonBaseStyle from './style.ts';
-import { DisplaySettings } from './types.ts';
-
-export type Gender = '男性' | '女性' | '不明';
+import { attachButtonBaseStyle, attachFormContainerStyle } from './style.ts';
+import { DisplaySettings, Gender } from './types.ts';
 
 const allGender: Gender[] = ['男性', '女性', '不明'];
 const defaultDisplaySetting = {
@@ -11,6 +9,7 @@ const defaultDisplaySetting = {
   isNekamaDisplay: true,
 };
 
+// これほんと汚い
 const genderToDisplaySetting = (
   gender: Gender,
   displaySettings: DisplaySettings,
@@ -31,11 +30,9 @@ const createPopupForm = () => {
   const formContainer = document.createElement('div');
   formContainer.id = 'tag-menu-list';
   formContainer.className = 'tag-list';
-  formContainer.style.position = 'relative';
-  formContainer.style.width = '80%';
+  attachFormContainerStyle(formContainer);
 
   const form = document.createElement('form');
-  form.id = 'myForm';
 
   const buttonOptions: Gender[] = allGender;
   buttonOptions.forEach((gender: Gender) => {
@@ -43,13 +40,13 @@ const createPopupForm = () => {
     button.type = 'button';
     button.name = 'gender';
     button.value = gender;
+    attachButtonBaseStyle(button, gender);
+
     const isAlreadySelected = !genderToDisplaySetting(
       gender,
       currentDisplayOption,
     );
     if (isAlreadySelected) button.classList.add('selected');
-
-    attachButtonBaseStyle(button, gender);
 
     button.addEventListener('click', () => {
       if (button.classList.contains('selected')) {
@@ -73,7 +70,7 @@ const createPopupForm = () => {
     event.preventDefault();
 
     // ここの型どうしようかな
-    const selectedOptions: string[] = [];
+    const selectedOptions: Gender[] = [];
 
     const buttons = form.querySelectorAll('input[type="button"]') as NodeListOf<
       HTMLInputElement
@@ -81,24 +78,17 @@ const createPopupForm = () => {
 
     buttons.forEach((button: HTMLInputElement) => {
       if (button.classList.contains('selected')) {
+        button.value as Gender;
+        // deno-lint-ignore ban-ts-comment
+        //  @ts-expect-error
         selectedOptions.push(button.value);
       }
     });
 
     const formattedOptions = defaultDisplaySetting;
 
-    selectedOptions.forEach((e) => {
-      switch (e) {
-        case '男性':
-          formattedOptions.isMaleDisplay = false;
-          break;
-        case '女性':
-          formattedOptions.isFemaleDisplay = false;
-          break;
-        case '中性':
-          formattedOptions.isNekamaDisplay = false;
-          break;
-      }
+    selectedOptions.forEach((gender) => {
+      genderToDisplaySetting(gender, formattedOptions);
     });
 
     // 選択項目をlocalStorageに保存
@@ -111,12 +101,12 @@ const createPopupForm = () => {
 };
 
 function insertPopupForm() {
-  const targetElement = document.querySelector('.btn-post-create');
+  const targetElement = document.querySelector('.tag-menu');
   if (targetElement) {
     const formContainer = createPopupForm();
     targetElement.insertAdjacentElement('beforebegin', formContainer);
   } else {
-    console.error('Element with class "btn-post-create" not found.');
+    console.error('Element with class "tag-menu" not found.');
   }
 }
 
