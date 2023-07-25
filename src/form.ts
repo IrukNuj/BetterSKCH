@@ -101,7 +101,7 @@ const createPopupForm = () => {
 };
 
 function insertPopupForm() {
-  const targetElement = document.querySelector('.tag-menu');
+  const targetElement = document.querySelector('#tag-menu');
   if (targetElement) {
     const formContainer = createPopupForm();
     targetElement.insertAdjacentElement('beforebegin', formContainer);

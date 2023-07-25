@@ -1,17 +1,13 @@
 {
-  "name": "ここにタイトルを挿入",
-  "description": "ここにタイトルを挿入",
-  "version": "0.1",
+  "name": "skypeChannelPostFilter",
+  "description": "がめんまっぴんく計画",
+  "version": "1.0",
 
   "manifest_version": 3,
 
   "permissions": ["activeTab", "storage"],
-  "background": {
-    "service_worker": "background.js"
-  },
   "action": {
-    "default_title": "ここにタイトルを挿入",
-    "default_popup": "popup.html"
+    "default_title": "ここにタイトルを挿入"
   },
   "content_scripts": [
     {
