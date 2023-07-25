@@ -1,4 +1,5 @@
 import insertPopupForm from './form.ts';
+import loadDataFromLocalStorage from './storage.ts';
 
 const ONE_LINE_COUNT = 3;
 
@@ -6,11 +7,11 @@ const removeElements = (elements: NodeListOf<HTMLElement>): void => {
   elements.forEach((e) => e.remove());
 };
 
-const form = chrome.runtime.getURL('../public/form.html');
-
 const main = (): void => {
+  const displaySettings = loadDataFromLocalStorage('displaySettings');
+
   const malePosts = document.querySelectorAll<HTMLElement>('.gender1'); //https://developer.hatenastaff.com/entry/2020/12/12/121212
-  // const femalePosts = document.querySelectorAll<HTMLElement>('.gender2');
+  const femalePosts = document.querySelectorAll<HTMLElement>('.gender2');
   const nekamaPosts = document.querySelectorAll<HTMLElement>('.gender3');
 
   const autopagerizePageSeparator = document.querySelectorAll<HTMLElement>(
@@ -18,26 +19,18 @@ const main = (): void => {
   );
   const ads = document.querySelectorAll<HTMLElement>('.ad');
 
-  // chrome.storage.local.get(
-  //   ['isRemoveMale', 'isRemoveFemale', 'isRemoveNekama'],
-  //   (values) => {
-  //     console.log(values);
-  //     if (values.isRemoveMale) removeElements(malePosts);
-  //     if (values.isRemoveFemale) removeElements(femalePosts);
-  //     if (values.isRemoveNekama) removeElements(nekamaPosts);
-  //   },
-  // );
-
-  removeElements(malePosts);
-  // if (values.isRemoveFemale) removeElements(femalePosts);
-  removeElements(nekamaPosts);
+  // 逆にしときゃよかった
+  if (!displaySettings.isMaleDisplay) removeElements(malePosts);
+  if (!displaySettings.isFemaleDisplay) removeElements(femalePosts);
+  if (!displaySettings.isNekamaDisplay) removeElements(nekamaPosts);
 
   removeElements(ads);
   removeElements(autopagerizePageSeparator);
 
-  const formedPosts = document.querySelectorAll<HTMLElement>('.post');
+  const filteredPostElements = document.querySelectorAll<HTMLElement>('.post');
 
-  formedPosts.forEach((e, count) => {
+  // 残った投稿お掃除
+  filteredPostElements.forEach((e, count) => {
     const icon = e.querySelector('img');
     const iconOriginalSrc = icon ? icon.getAttribute('data-original') : '';
     if (iconOriginalSrc) icon?.setAttribute('src', iconOriginalSrc);
