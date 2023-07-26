@@ -1,5 +1,5 @@
 import insertPopupForm from './form.ts';
-import loadDataFromLocalStorage from './storage.ts';
+import { loadDataFromLocalStorage } from './storage.ts';
 
 const ONE_LINE_COUNT = 3;
 
@@ -31,10 +31,12 @@ const main = (): void => {
 
   // 残った投稿お掃除
   filteredPostElements.forEach((e, count) => {
+    // autopagerizeのicon付与
     const icon = e.querySelector('img');
-    const iconOriginalSrc = icon ? icon.getAttribute('data-original') : '';
-    if (iconOriginalSrc) icon?.setAttribute('src', iconOriginalSrc);
+    const iconOriginalSrc = icon ? icon.getAttribute('data-original') : null;
+    if (iconOriginalSrc && icon) icon.setAttribute('src', iconOriginalSrc);
 
+    // css整理
     e.classList.remove('first', 'end');
     switch (count % ONE_LINE_COUNT) {
       case 0:

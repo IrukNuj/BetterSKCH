@@ -1,54 +1,27 @@
-import loadDataFromLocalStorage from './storage.ts';
+import { loadDataFromLocalStorage, saveDataToLocalStorage } from './storage.ts';
 import { attachButtonBaseStyle, attachFormContainerStyle } from './style.ts';
-import {
-  DisplaySetting,
-  DisplaySettingKey,
-  DisplaySettings,
-  Gender,
-} from './types.ts';
-
-const allGender: Gender[] = ['男性', '女性', '不明'];
-
-const defaultDisplaySetting = {
-  isMaleDisplay: true,
-  isFemaleDisplay: true,
-  isNekamaDisplay: true,
-};
-
-// これほんと汚い
-const genderToDisplaySetting = (
-  gender: Gender,
-): DisplaySettingKey => {
-  switch (gender) {
-    case '男性':
-      return 'isMaleDisplay';
-    case '女性':
-      return 'isFemaleDisplay';
-    case '不明':
-      return 'isNekamaDisplay';
-  }
-};
+import { DisplaySettingKey, Gender } from './types.ts';
+import { genderToDisplaySetting } from './util.ts';
 
 const createPopupForm = () => {
   const currentDisplayOption = loadDataFromLocalStorage('displaySettings');
 
   const formContainer = document.createElement('div');
-  formContainer.id = 'tag-menu-list';
-  formContainer.className = 'tag-list';
   attachFormContainerStyle(formContainer);
-
   const form = document.createElement('form');
 
-  const buttonOptions: Gender[] = allGender;
+  // button作成
+  const buttonOptions: Gender[] = ['男性', '女性', '不明'];
   buttonOptions.forEach((gender: Gender) => {
     const button = document.createElement('input');
     button.type = 'button';
+    button.id = 'extension-button-gender-filter';
     button.name = 'gender';
-    button.value = gender;
+    button.value = genderToDisplaySetting(gender);
     const currentGenderSettingKey = genderToDisplaySetting(gender);
     const isAlreadySelected = !currentDisplayOption[currentGenderSettingKey];
-
     if (isAlreadySelected) button.classList.add('selected');
+
     attachButtonBaseStyle(button, gender);
 
     button.addEventListener('click', () => {
@@ -72,32 +45,27 @@ const createPopupForm = () => {
   form.addEventListener('submit', (event) => {
     event.preventDefault();
 
-    // ここの型どうしようかな
-    const selectedOptions: Gender[] = [];
-
-    const buttons = form.querySelectorAll('input[type="button"]') as NodeListOf<
+    const selectedOptions: DisplaySettingKey[] = [];
+    const buttons = form.querySelectorAll(
+      '#extension-button-gender-filter',
+    ) as NodeListOf<
       HTMLInputElement
     >;
 
     buttons.forEach((button: HTMLInputElement) => {
       if (button.classList.contains('selected')) {
-        button.value as Gender;
+        button.value as DisplaySettingKey;
         // deno-lint-ignore ban-ts-comment
         //  @ts-expect-error
         selectedOptions.push(button.value);
       }
     });
 
-    const formattedOptions = defaultDisplaySetting;
+    const formattedOptions = currentDisplayOption;
+    selectedOptions.forEach((e) => formattedOptions[e] = false);
 
-    selectedOptions.forEach((gender) => {
-      const selectedGenderKey = genderToDisplaySetting(gender);
-      formattedOptions[selectedGenderKey] = false;
-    });
-
-    // 選択項目をlocalStorageに保存
-    localStorage.setItem('displaySettings', JSON.stringify(formattedOptions));
-    console.log('Data saved to localStorage:', formattedOptions);
+    saveDataToLocalStorage('displaySettings', formattedOptions);
+    // console.log('Data saved to localStorage:', formattedOptions);
 
     location.reload();
   });
@@ -107,12 +75,10 @@ const createPopupForm = () => {
 };
 
 function insertPopupForm() {
-  const targetElement = document.querySelector('#tag-menu');
+  const targetElement = document.querySelector('#posts');
   if (targetElement) {
     const formContainer = createPopupForm();
     targetElement.insertAdjacentElement('beforebegin', formContainer);
-  } else {
-    console.error('Element with class "tag-menu" not found.');
   }
 }
 
