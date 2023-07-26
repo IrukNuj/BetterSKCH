@@ -11,10 +11,10 @@ export function genderToDisplaySetting(gender: Gender): DisplaySettingKey {
   }
 }
 
-export function displaySettingToGender(
-  displaySetting: DisplaySettingKey,
+export function displaySettingKeyToGender(
+  displaySettingKey: DisplaySettingKey,
 ): Gender {
-  switch (displaySetting) {
+  switch (displaySettingKey) {
     case 'isMaleDisplay':
       return '男性';
     case 'isFemaleDisplay':

@@ -2,10 +2,7 @@
   "name": "ここにタイトルを挿入",
   "description": "がめんまっぴんく計画",
   "version": "1.0",
-
   "manifest_version": 3,
-
-  "permissions": ["activeTab", "storage"],
   "action": {
     "default_title": "ここにタイトルを挿入"
   },

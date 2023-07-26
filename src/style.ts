@@ -1,6 +1,6 @@
-import { Gender } from './types.ts';
+import { DisplaySettingKey, Gender } from './types.ts';
 
-const resetButtonStyle = (button: HTMLInputElement) => {
+const resetButtonStyle = (button: HTMLButtonElement) => {
   button.style.backgroundColor = 'transparent';
   button.style.border = 'none';
   button.style.cursor = 'pointer';
@@ -10,8 +10,8 @@ const resetButtonStyle = (button: HTMLInputElement) => {
 };
 
 export function attachButtonBaseStyle(
-  button: HTMLInputElement,
-  gender: Gender,
+  button: HTMLButtonElement,
+  displaySettingKey: DisplaySettingKey,
 ) {
   resetButtonStyle(button);
 
@@ -22,25 +22,24 @@ export function attachButtonBaseStyle(
   button.style.color = '#fff';
   button.style.textDecoration = 'none';
   button.style.margin = '0 8px 0px 0px';
-  button.style.padding = '0 8px';
+  button.style.padding = '0 16px';
   button.style.borderRadius = '2px';
   button.style.opacity = button.className === 'selected' ? '0.3' : '0.85';
 
-  switch (gender) {
-    case '男性':
+  switch (displaySettingKey) {
+    case 'isMaleDisplay':
       button.style.background = 'linear-gradient(#347ddb, #34c5db)';
       break;
-    case '女性':
+    case 'isFemaleDisplay':
       button.style.background = 'linear-gradient(#dc3460, #dc34a9)';
       break;
-    case '不明':
+    case 'isNekamaDisplay':
       button.style.background = 'linear-gradient(#5b6e78, #789094)';
   }
 }
 
 export function attachFormContainerStyle(formContainer: HTMLDivElement) {
   formContainer.style.position = 'relative';
-  formContainer.style.width = '80%';
   formContainer.style.display = 'flex';
   formContainer.style.justifyContent = 'center';
 }
