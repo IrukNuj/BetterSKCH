@@ -3,11 +3,11 @@ import { DisplaySettingKey, Gender } from './types.ts';
 export function genderToDisplaySetting(gender: Gender): DisplaySettingKey {
   switch (gender) {
     case '男性':
-      return 'isMaleDisplay';
+      return 'isMaleHidden';
     case '女性':
-      return 'isFemaleDisplay';
+      return 'isFemaleHidden';
     case '不明':
-      return 'isNekamaDisplay';
+      return 'isNekamaHidden';
   }
 }
 
@@ -15,11 +15,11 @@ export function displaySettingKeyToGender(
   displaySettingKey: DisplaySettingKey,
 ): Gender {
   switch (displaySettingKey) {
-    case 'isMaleDisplay':
+    case 'isMaleHidden':
       return '男性';
-    case 'isFemaleDisplay':
+    case 'isFemaleHidden':
       return '女性';
-    case 'isNekamaDisplay':
+    case 'isNekamaHidden':
       return '不明';
   }
 }

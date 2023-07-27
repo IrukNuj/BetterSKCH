@@ -2,46 +2,49 @@ export type Gender = '男性' | '女性' | '不明';
 
 export const allGender: Gender[] = ['男性', '女性', '不明'];
 
-type IsMaleDisplay = {
-  isMaleDisplay: boolean;
+type IsMaleHidden = {
+  isMaleHidden: boolean;
+};
+type IsFemaleHidden = {
+  isFemaleHidden: boolean;
 };
 
-type IsFemaleDisplay = {
-  isFemaleDisplay: boolean;
-};
-
-type IsNekamaDisplay = {
-  isNekamaDisplay: boolean;
+type IsNekamaHidden = {
+  isNekamaHidden: boolean;
 };
 
 export type DisplaySettingKey =
-  | 'isMaleDisplay'
-  | 'isFemaleDisplay'
-  | 'isNekamaDisplay';
+  | 'isMaleHidden'
+  | 'isFemaleHidden'
+  | 'isNekamaHidden';
 export type DisplaySettingKeys = [
-  'isMaleDisplay',
-  'isFemaleDisplay',
-  'isNekamaDisplay',
+  'isMaleHidden',
+  'isFemaleHidden',
+  'isNekamaHidden',
 ];
 
 export const allDisplaySettingKey: DisplaySettingKeys = [
-  'isMaleDisplay',
-  'isFemaleDisplay',
-  'isNekamaDisplay',
+  'isMaleHidden',
+  'isFemaleHidden',
+  'isNekamaHidden',
 ];
 
 export type DisplaySetting =
-  | IsMaleDisplay
-  | IsFemaleDisplay
-  | IsNekamaDisplay;
+  | IsMaleHidden
+  | IsFemaleHidden
+  | IsNekamaHidden;
 
 export type DisplaySettings =
-  & IsMaleDisplay
-  & IsFemaleDisplay
-  & IsNekamaDisplay;
+  & IsMaleHidden
+  & IsFemaleHidden
+  & IsNekamaHidden;
 
 export const defaultDisplaySettings: DisplaySettings = {
-  isMaleDisplay: true,
-  isFemaleDisplay: true,
-  isNekamaDisplay: true,
+  isMaleHidden: false,
+  isFemaleHidden: false,
+  isNekamaHidden: false,
 };
+
+export type UserId = string;
+export type BannedUsers = UserId[];
+export const defaultBannedUsers: BannedUsers = [];

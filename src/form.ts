@@ -1,18 +1,26 @@
-import { loadDataFromLocalStorage, saveDataToLocalStorage } from './storage.ts';
-import { attachButtonBaseStyle, attachFormContainerStyle } from './style.ts';
+import {
+  loadDataFromLocalStorage,
+  saveDataToLocalStorage,
+  selectedDisPlaySettingKeysToStorageData,
+} from './storage.ts';
+import {
+  attachFormContainerStyle,
+  attachGenderButtonStyle,
+  attachSubmitButtonStyle,
+} from './style.ts';
 import {
   allDisplaySettingKey,
-  defaultDisplaySettings,
   DisplaySettingKey,
   DisplaySettingKeys,
+  DisplaySettings,
 } from './types.ts';
 import { displaySettingKeyToGender } from './util.ts';
 
 const GENDER_FILER_BUTTON_ID = 'extension-button-gender-filter';
 
-const createPopupForm = () => {
-  const currentDisplayOption = loadDataFromLocalStorage('displaySettings');
+const currentDisplayOption = loadDataFromLocalStorage('displaySettings');
 
+const createPopupForm = (currentDisplayOption: DisplaySettings) => {
   const formContainer = document.createElement('div');
   attachFormContainerStyle(formContainer);
   const form = document.createElement('form');
@@ -26,10 +34,10 @@ const createPopupForm = () => {
     button.name = 'gender';
     button.value = displaySettingKey;
     button.innerText = displaySettingKeyToGender(displaySettingKey);
-    const isAlreadySelected = !currentDisplayOption[displaySettingKey];
+    const isAlreadySelected = currentDisplayOption[displaySettingKey];
     if (isAlreadySelected) button.classList.add('selected');
 
-    attachButtonBaseStyle(button, displaySettingKey);
+    attachGenderButtonStyle(button, displaySettingKey);
 
     button.addEventListener('click', () => {
       if (button.classList.contains('selected')) {
@@ -47,6 +55,7 @@ const createPopupForm = () => {
   const submitButton = document.createElement('button');
   submitButton.type = 'submit';
   submitButton.textContent = '表示をきりかえる';
+  attachSubmitButtonStyle(submitButton);
   form.appendChild(submitButton);
 
   form.addEventListener('submit', (event) => {
@@ -68,13 +77,11 @@ const createPopupForm = () => {
       }
     });
 
-    const formattedOptions = defaultDisplaySettings;
-    selectedOptions.forEach((e) => formattedOptions[e] = false);
+    const formattedOptions = selectedDisPlaySettingKeysToStorageData(
+      selectedOptions,
+    );
 
-    console.log('current:', currentDisplayOption);
     saveDataToLocalStorage('displaySettings', formattedOptions);
-    console.log('Data saved to localStorage:', formattedOptions);
-
     location.reload();
   });
 
@@ -85,7 +92,7 @@ const createPopupForm = () => {
 function insertPopupForm() {
   const targetElement = document.querySelector('#posts');
   if (targetElement) {
-    const formContainer = createPopupForm();
+    const formContainer = createPopupForm(currentDisplayOption);
     targetElement.insertAdjacentElement('beforebegin', formContainer);
   }
 }
