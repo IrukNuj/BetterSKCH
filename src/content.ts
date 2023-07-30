@@ -5,37 +5,21 @@ import {
   DISPLAY_SETTINGS_STORAGE_KEY,
   loadDataFromLocalStorage,
 } from './storage.ts';
-import { removeBannedUserPosts, removeElements } from './util.ts';
+import { filterPosts } from './util.ts';
 
 const ONE_LINE_COUNT = 3;
-const AUTOPAGERIZER_SELECTOR =
-  '.autopagerize_page_separator, .autopagerize_link, .autopagerize_page_info';
 
 const main = () => {
   const displaySettings = loadDataFromLocalStorage(
     DISPLAY_SETTINGS_STORAGE_KEY,
   );
   const bannedUserIds = loadDataFromLocalStorage(BANNED_USER_STORAGE_KEY);
-
   const posts = document.getElementById('posts');
   if (!posts) {
     console.info('postsみつかんないよ～；；');
     return;
   }
-
-  const { isMaleHidden, isFemaleHidden, isNekamaHidden } = displaySettings;
-  if (isMaleHidden) removeElements(posts.querySelectorAll('.gender1')); //https://developer.hatenastaff.com/entry/2020/12/12/121212
-  if (isFemaleHidden) removeElements(posts.querySelectorAll('.gender2'));
-  if (isNekamaHidden) removeElements(posts.querySelectorAll('.gender3'));
-  removeElements(posts.querySelectorAll('.ad'));
-  removeElements(posts.querySelectorAll(AUTOPAGERIZER_SELECTOR));
-
-  if (bannedUserIds.length !== 0) {
-    const bannedUserSelector = bannedUserIds.map(
-      (v) => `input[value='${v}']`,
-    ).join(',');
-    removeBannedUserPosts(posts.querySelectorAll(bannedUserSelector));
-  }
+  filterPosts(displaySettings, bannedUserIds, posts);
 
   // 残った投稿お掃除
   const filteredPostElements = document.querySelectorAll('.post');

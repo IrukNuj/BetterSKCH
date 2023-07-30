@@ -1,8 +1,10 @@
 import {
+  BannedUsers,
   DISPLAY_SETTING_KEY_IS_FEMALE_HIDDEN,
   DISPLAY_SETTING_KEY_IS_MALE_HIDDEN,
   DISPLAY_SETTING_KEY_IS_NEKAMA_HIDDEN,
   DisplaySettingKey,
+  DisplaySettings,
   Gender,
   GENDER_CATEGORY_TEXT_FEMALE,
   GENDER_CATEGORY_TEXT_MALE,
@@ -33,11 +35,11 @@ export function displaySettingKeyToGender(
   }
 }
 
-export function removeElements(elements?: NodeListOf<Element>): void {
+function removeElements(elements?: NodeListOf<Element>): void {
   if (elements) elements.forEach((e) => e.remove());
 }
 
-export function removeBannedUserPosts(
+function removeBannedUserPosts(
   bannedUserIdNodes?: NodeListOf<Element>,
 ) {
   if (!bannedUserIdNodes) return;
@@ -48,18 +50,36 @@ export function removeBannedUserPosts(
   });
 }
 
-// export function removeFilteredGenderPosts(
-//   elements: NodeListOf<Element>,
-//   displaySettings: DisplaySettings,
-// ): void {
-//   (Object.keys(displaySettings) as DisplaySettingKeys).forEach((e) => {
-//     switch (e as DisplaySettingKey) {
-//       case 'isMaleHidden':
-//         return;
-//       case 'isFemaleHidden':
-//         return;
-//       case 'isNekamaHidden':
-//         return;
-//     }
-//   });
-// }
+const MALE_POSTS_QUERY_SELECTOR = '.gender1';
+const FEMALE_POSTS_QUERY_SELECTOR = 'gender2';
+const NEKAMA_POSTS_QUERY_SELECTOR = 'gender3';
+const ADS_QUERY_SELECTOR = '.ad';
+const AUTOPAGERIZER_SELECTOR =
+  '.autopagerize_page_separator, .autopagerize_link, .autopagerize_page_info';
+
+export function filterPosts(
+  displaySettings: DisplaySettings,
+  bannedUserIds: BannedUsers,
+  posts: HTMLElement,
+) {
+  const { isMaleHidden, isFemaleHidden, isNekamaHidden } = displaySettings;
+  //https://developer.hatenastaff.com/entry/2020/12/12/121212
+  if (isMaleHidden) {
+    removeElements(posts.querySelectorAll(MALE_POSTS_QUERY_SELECTOR));
+  }
+  if (isFemaleHidden) {
+    removeElements(posts.querySelectorAll(FEMALE_POSTS_QUERY_SELECTOR));
+  }
+  if (isNekamaHidden) {
+    removeElements(posts.querySelectorAll(NEKAMA_POSTS_QUERY_SELECTOR));
+  }
+  removeElements(posts.querySelectorAll(ADS_QUERY_SELECTOR));
+  removeElements(posts.querySelectorAll(AUTOPAGERIZER_SELECTOR));
+
+  if (bannedUserIds.length !== 0) {
+    const bannedUserSelector = bannedUserIds.map(
+      (v) => `input[value='${v}']`,
+    ).join(',');
+    removeBannedUserPosts(posts.querySelectorAll(bannedUserSelector));
+  }
+}
