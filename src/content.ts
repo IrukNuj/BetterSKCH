@@ -1,85 +1,74 @@
 import insertBanButton from './banButton.ts';
 import insertPopupForm from './form.ts';
-import { loadDataFromLocalStorage } from './storage.ts';
+import {
+  BANNED_USER_STORAGE_KEY,
+  DISPLAY_SETTINGS_STORAGE_KEY,
+  loadDataFromLocalStorage,
+} from './storage.ts';
+import { removeBannedUserPosts, removeElements } from './util.ts';
 
 const ONE_LINE_COUNT = 3;
 const AUTOPAGERIZER_SELECTOR =
   '.autopagerize_page_separator, .autopagerize_link, .autopagerize_page_info';
 
-const removeElements = (elements: NodeListOf<Element>): void => {
-  elements.forEach((e) => e.remove());
-};
-
-const removeBannedUserPosts = (
-  bannedUserIdNodes: NodeListOf<Element>,
-) => {
-  bannedUserIdNodes.forEach((e) => {
-    const bannedUserPost = e.parentNode?.parentElement?.parentElement
-      ?.parentElement;
-    if (bannedUserPost) bannedUserPost.remove();
-  });
-};
-
-const displaySettings = loadDataFromLocalStorage('displaySettings');
-const bannedUserIds = loadDataFromLocalStorage('bannedUsers');
-
-const main = (): void => {
-  const posts = document.getElementById('posts');
-  if (!posts) return;
-
-  const bannedUserSelector = bannedUserIds.map(
-    (v) => `input[value='${v}']`,
-  ).join(',');
-  const bannedUserIdNodes = posts.querySelectorAll(
-    bannedUserSelector,
+const main = () => {
+  const displaySettings = loadDataFromLocalStorage(
+    DISPLAY_SETTINGS_STORAGE_KEY,
   );
+  const bannedUserIds = loadDataFromLocalStorage(BANNED_USER_STORAGE_KEY);
+
+  const posts = document.getElementById('posts');
+  if (!posts) {
+    console.info('postsみつかんないよ～；；');
+    return;
+  }
 
   const { isMaleHidden, isFemaleHidden, isNekamaHidden } = displaySettings;
-  const malePosts = posts.querySelectorAll('.gender1'); //https://developer.hatenastaff.com/entry/2020/12/12/121212
-  const femalePosts = posts.querySelectorAll('.gender2');
-  const nekamaPosts = posts.querySelectorAll('.gender3');
-  const autopagerizeSeparator = posts.querySelectorAll(AUTOPAGERIZER_SELECTOR);
-  const ads = posts.querySelectorAll('.ad');
+  if (isMaleHidden) removeElements(posts.querySelectorAll('.gender1')); //https://developer.hatenastaff.com/entry/2020/12/12/121212
+  if (isFemaleHidden) removeElements(posts.querySelectorAll('.gender2'));
+  if (isNekamaHidden) removeElements(posts.querySelectorAll('.gender3'));
+  removeElements(posts.querySelectorAll('.ad'));
+  removeElements(posts.querySelectorAll(AUTOPAGERIZER_SELECTOR));
 
-  if (isMaleHidden) removeElements(malePosts);
-  if (isFemaleHidden) removeElements(femalePosts);
-  if (isNekamaHidden) removeElements(nekamaPosts);
-  removeBannedUserPosts(bannedUserIdNodes);
-  removeElements(ads);
-  removeElements(autopagerizeSeparator);
+  if (bannedUserIds.length !== 0) {
+    const bannedUserSelector = bannedUserIds.map(
+      (v) => `input[value='${v}']`,
+    ).join(',');
+    removeBannedUserPosts(posts.querySelectorAll(bannedUserSelector));
+  }
 
   // 残った投稿お掃除
   const filteredPostElements = document.querySelectorAll('.post');
-  filteredPostElements.forEach((e, count) => {
+  filteredPostElements.forEach((post, count) => {
     // autopagerizeのicon付与
-    const icon = e.querySelector('img');
+    const icon = post.querySelector('img');
     const iconOriginalSrc = icon ? icon.getAttribute('data-original') : null;
-    if (iconOriginalSrc && icon) icon.setAttribute('src', iconOriginalSrc);
+    if (iconOriginalSrc && icon && icon.src !== iconOriginalSrc) {
+      icon.setAttribute('src', iconOriginalSrc);
+    }
 
     // banButton
-    const userIdDocument: HTMLInputElement | null = e.querySelector(
+    const userIdDocument = post.querySelector<HTMLInputElement>(
       'input[type=\'text\']',
     );
-    const targetElement = e.querySelector(
-      '.post-header-line.skypeid',
-    );
+    const targetElement = post.querySelector('.post-header-line.skypeid');
     if (targetElement && userIdDocument) {
       insertBanButton(targetElement, userIdDocument.value);
     }
 
     // css整理
-    e.classList.remove('first', 'end');
+    post.classList.remove('first', 'end');
     switch (count % ONE_LINE_COUNT) {
       case 0:
-        e.classList.add('first');
+        post.classList.add('first');
         break;
       case 2:
-        e.classList.add('end');
+        post.classList.add('end');
         break;
     }
   });
 };
 
-self.addEventListener('load', insertPopupForm);
-self.addEventListener('load', main);
+self.addEventListener('DOMContentLoaded', insertPopupForm);
+self.addEventListener('DOMContentLoaded', main);
 self.addEventListener('GM_AutoPagerizeNextPageLoaded', main);

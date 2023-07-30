@@ -6,18 +6,22 @@ import {
   DisplaySettings,
 } from './types.ts';
 
-type StorageKey = 'displaySettings' | 'bannedUsers';
+export const DISPLAY_SETTINGS_STORAGE_KEY = 'displaySettings';
+export const BANNED_USER_STORAGE_KEY = 'bannedUsers';
+
+type StorageKey =
+  | typeof DISPLAY_SETTINGS_STORAGE_KEY
+  | typeof BANNED_USER_STORAGE_KEY;
 type StorageData = DisplaySettings | BannedUsers;
 type AllStorageData = {
-  'displaySettings': DisplaySettings;
-  'bannedUsers': BannedUsers;
+  [DISPLAY_SETTINGS_STORAGE_KEY]: DisplaySettings;
+  [BANNED_USER_STORAGE_KEY]: BannedUsers;
 };
-
-const storageKeyToDefaultData = (key: StorageKey): StorageData => {
+const storageKeyToDefaultData = (key: StorageKey): StorageData | null => {
   switch (key) {
-    case 'displaySettings':
+    case DISPLAY_SETTINGS_STORAGE_KEY:
       return defaultDisplaySettings;
-    case 'bannedUsers':
+    case BANNED_USER_STORAGE_KEY:
       return defaultBannedUsers;
   }
 };

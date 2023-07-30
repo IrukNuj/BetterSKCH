@@ -1,32 +1,43 @@
-export type Gender = '男性' | '女性' | '不明';
+export const GENDER_CATEGORY_TEXT_MALE = '男性';
+export const GENDER_CATEGORY_TEXT_FEMALE = '女性';
+export const GENDER_CATEGORY_TEXT_NEKAMA = '不明';
 
-export const allGender: Gender[] = ['男性', '女性', '不明'];
+export type Gender =
+  | typeof GENDER_CATEGORY_TEXT_MALE
+  | typeof GENDER_CATEGORY_TEXT_FEMALE
+  | typeof GENDER_CATEGORY_TEXT_NEKAMA;
+
+export const allGender: Gender[] = [
+  GENDER_CATEGORY_TEXT_MALE,
+  GENDER_CATEGORY_TEXT_FEMALE,
+  GENDER_CATEGORY_TEXT_NEKAMA,
+];
+
+export const DISPLAY_SETTING_KEY_IS_MALE_HIDDEN = 'isMaleHidden';
+export const DISPLAY_SETTING_KEY_IS_FEMALE_HIDDEN = 'isFemaleHidden';
+export const DISPLAY_SETTING_KEY_IS_NEKAMA_HIDDEN = 'isNekamaHidden';
 
 type IsMaleHidden = {
-  isMaleHidden: boolean;
+  [DISPLAY_SETTING_KEY_IS_MALE_HIDDEN]: boolean;
 };
 type IsFemaleHidden = {
-  isFemaleHidden: boolean;
+  [DISPLAY_SETTING_KEY_IS_FEMALE_HIDDEN]: boolean;
 };
 
 type IsNekamaHidden = {
-  isNekamaHidden: boolean;
+  [DISPLAY_SETTING_KEY_IS_NEKAMA_HIDDEN]: boolean;
 };
 
-export type DisplaySettingKey =
-  | 'isMaleHidden'
-  | 'isFemaleHidden'
-  | 'isNekamaHidden';
 export type DisplaySettingKeys = [
-  'isMaleHidden',
-  'isFemaleHidden',
-  'isNekamaHidden',
+  typeof DISPLAY_SETTING_KEY_IS_MALE_HIDDEN,
+  typeof DISPLAY_SETTING_KEY_IS_FEMALE_HIDDEN,
+  typeof DISPLAY_SETTING_KEY_IS_NEKAMA_HIDDEN,
 ];
 
 export const allDisplaySettingKey: DisplaySettingKeys = [
-  'isMaleHidden',
-  'isFemaleHidden',
-  'isNekamaHidden',
+  DISPLAY_SETTING_KEY_IS_MALE_HIDDEN,
+  DISPLAY_SETTING_KEY_IS_FEMALE_HIDDEN,
+  DISPLAY_SETTING_KEY_IS_NEKAMA_HIDDEN,
 ];
 
 export type DisplaySetting =
@@ -38,6 +49,8 @@ export type DisplaySettings =
   & IsMaleHidden
   & IsFemaleHidden
   & IsNekamaHidden;
+
+export type DisplaySettingKey = keyof DisplaySettings;
 
 export const defaultDisplaySettings: DisplaySettings = {
   isMaleHidden: false,

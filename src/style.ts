@@ -60,7 +60,9 @@ export function attachSubmitButtonStyle(submitButton: HTMLButtonElement) {
   submitButton.style.color = 'rgb(52, 73, 94)';
 }
 
-export function attachBanButtonStyle(banButton: HTMLButtonElement) {
+export function attachBanButtonStyle(
+  banButton: HTMLButtonElement,
+) {
   attachButtonBaseStyle(banButton);
 
   banButton.style.position = 'absolute';
@@ -71,8 +73,9 @@ export function attachBanButtonStyle(banButton: HTMLButtonElement) {
   banButton.style.fontSize = '20%';
   banButton.style.border = '0.8px solid white';
   banButton.style.borderRadius = '2px';
-  banButton.style.color = 'white';
   banButton.style.paddingBottom = '20px';
-
+  banButton.style.color = '#fff';
   banButton.style.background = '#dc3460';
+  // banButton.style.color = isAlreadyBlocked ? '#dc3460' : '#fff';
+  // banButton.style.background = isAlreadyBlocked ? '#fff' : '#dc3460';
 }

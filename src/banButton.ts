@@ -1,11 +1,19 @@
-import { loadDataFromLocalStorage, saveDataToLocalStorage } from './storage.ts';
+import {
+  BANNED_USER_STORAGE_KEY,
+  loadDataFromLocalStorage,
+  saveDataToLocalStorage,
+} from './storage.ts';
 import { attachBanButtonStyle } from './style.ts';
 import { UserId } from './types.ts';
 
 const USER_BAN_BUTTON_ID = 'extension-button-user-ban';
+const CLASS_NAME_BLOCKED = 'blocked';
 
 const createBanButton = (userId: UserId) => {
   const banButton = document.createElement('button');
+  const bannedUserPost = banButton.parentElement?.parentElement
+    ?.parentElement;
+
   banButton.type = 'button';
   banButton.id = USER_BAN_BUTTON_ID;
   banButton.name = 'user-ban';
@@ -14,30 +22,35 @@ const createBanButton = (userId: UserId) => {
   attachBanButtonStyle(banButton);
 
   banButton.addEventListener('click', () => {
-    const isAlreadyBlocked = banButton.classList.contains('blocked');
-    const bannedUserPost = banButton.parentElement?.parentElement
-      ?.parentElement;
-    const storageData = loadDataFromLocalStorage('bannedUsers');
+    const isAlreadyBlocked = banButton.classList.contains(CLASS_NAME_BLOCKED);
+    const storageData = loadDataFromLocalStorage(BANNED_USER_STORAGE_KEY);
+    const isStorageDataHasUserId = storageData.includes(userId);
 
     if (isAlreadyBlocked) {
-      banButton.classList.remove('blocked');
+      banButton.classList.remove(CLASS_NAME_BLOCKED);
       banButton.innerText = 'ブロック';
-      const unBlockedData = new Set(storageData);
-      unBlockedData.delete(userId);
-      saveDataToLocalStorage('bannedUsers', [...unBlockedData]);
+      banButton.style.background = '#dc3460';
+      banButton.style.color = '#FFF';
 
+      if (isStorageDataHasUserId) {
+        const unBlockedData = new Set(storageData);
+        unBlockedData.delete(userId);
+        saveDataToLocalStorage(BANNED_USER_STORAGE_KEY, [...unBlockedData]);
+      }
       // deno-lint-ignore ban-ts-comment
       // @ts-ignore
       if (bannedUserPost) {
         bannedUserPost.style.opacity = '1.0';
       }
     } else {
-      banButton.classList.add('blocked');
+      banButton.classList.add(CLASS_NAME_BLOCKED);
       banButton.innerText = 'ブロック解除';
-      if (!storageData.includes(userId)) {
+      banButton.style.background = '#FFF';
+      banButton.style.color = '#dc3460';
+      if (!isStorageDataHasUserId) {
         const blockedData = new Set(storageData);
         blockedData.add(userId);
-        saveDataToLocalStorage('bannedUsers', [...blockedData]);
+        saveDataToLocalStorage(BANNED_USER_STORAGE_KEY, [...blockedData]);
       }
 
       // deno-lint-ignore ban-ts-comment
@@ -51,7 +64,10 @@ const createBanButton = (userId: UserId) => {
   return banButton;
 };
 
-const insertBanButton = (targetElement: Element, userId: UserId) => {
+const insertBanButton = (
+  targetElement: Element,
+  userId: UserId,
+) => {
   const banButton = createBanButton(userId);
   targetElement.insertAdjacentElement('beforebegin', banButton);
 };

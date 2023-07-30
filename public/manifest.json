@@ -9,7 +9,8 @@
   "content_scripts": [
     {
       "js": ["content.js"],
-      "matches": ["*://*.skypech.com/*"]
+      "matches": ["*://*.skypech.com/*"],
+      "run_at": "document_start"
     }
   ]
 }
