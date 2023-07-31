@@ -15,10 +15,8 @@ const main = () => {
   );
   const bannedUserIds = loadDataFromLocalStorage(BANNED_USER_STORAGE_KEY);
   const posts = document.getElementById('posts');
-  if (!posts) {
-    console.info('postsみつかんないよ～；；');
-    return;
-  }
+  if (!posts) return;
+
   filterPosts(displaySettings, bannedUserIds, posts);
 
   // 残った投稿お掃除

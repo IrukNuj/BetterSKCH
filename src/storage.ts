@@ -37,9 +37,9 @@ export function selectedDisPlaySettingKeysToStorageData(
 export function loadDataFromLocalStorage<T extends StorageKey>(
   key: T,
 ): AllStorageData[T] {
-  console.log('key:', key);
+  // console.log('key:', key);
   const data = localStorage.getItem(key);
-  console.log('loadData:', data);
+  // console.log('loadData:', data);
   return data ? JSON.parse(data) : storageKeyToDefaultData(key);
 }
 
@@ -47,7 +47,7 @@ export function saveDataToLocalStorage<T extends StorageData>(
   key: StorageKey,
   data: T,
 ) {
-  console.log('key:', key);
+  // console.log('key:', key);
   localStorage.setItem(key, JSON.stringify(data));
-  console.log('savedData:', data);
+  // console.log('savedData:', data);
 }
