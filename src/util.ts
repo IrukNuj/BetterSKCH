@@ -1,8 +1,8 @@
 import {
   BannedUsers,
-  DISPLAY_SETTING_KEY_IS_FEMALE_HIDDEN,
-  DISPLAY_SETTING_KEY_IS_MALE_HIDDEN,
-  DISPLAY_SETTING_KEY_IS_NEKAMA_HIDDEN,
+  DISPLAY_SETTING_KEY_FEMALE,
+  DISPLAY_SETTING_KEY_MALE,
+  DISPLAY_SETTING_KEY_NEKAMA,
   DisplaySettingKey,
   DisplaySettings,
   Gender,
@@ -14,11 +14,11 @@ import {
 export function genderToDisplaySetting(gender: Gender): DisplaySettingKey {
   switch (gender) {
     case GENDER_CATEGORY_TEXT_MALE:
-      return DISPLAY_SETTING_KEY_IS_MALE_HIDDEN;
+      return DISPLAY_SETTING_KEY_MALE;
     case GENDER_CATEGORY_TEXT_FEMALE:
-      return DISPLAY_SETTING_KEY_IS_FEMALE_HIDDEN;
+      return DISPLAY_SETTING_KEY_FEMALE;
     case GENDER_CATEGORY_TEXT_NEKAMA:
-      return DISPLAY_SETTING_KEY_IS_NEKAMA_HIDDEN;
+      return DISPLAY_SETTING_KEY_NEKAMA;
   }
 }
 
@@ -26,11 +26,11 @@ export function displaySettingKeyToGender(
   displaySettingKey: DisplaySettingKey,
 ): Gender {
   switch (displaySettingKey) {
-    case DISPLAY_SETTING_KEY_IS_MALE_HIDDEN:
+    case DISPLAY_SETTING_KEY_MALE:
       return GENDER_CATEGORY_TEXT_MALE;
-    case DISPLAY_SETTING_KEY_IS_FEMALE_HIDDEN:
+    case DISPLAY_SETTING_KEY_FEMALE:
       return GENDER_CATEGORY_TEXT_FEMALE;
-    case DISPLAY_SETTING_KEY_IS_NEKAMA_HIDDEN:
+    case DISPLAY_SETTING_KEY_NEKAMA:
       return GENDER_CATEGORY_TEXT_NEKAMA;
   }
 }
@@ -51,8 +51,8 @@ function removeBannedUserPosts(
 }
 
 const MALE_POSTS_QUERY_SELECTOR = '.gender1';
-const FEMALE_POSTS_QUERY_SELECTOR = 'gender2';
-const NEKAMA_POSTS_QUERY_SELECTOR = 'gender3';
+const FEMALE_POSTS_QUERY_SELECTOR = '.gender2';
+const NEKAMA_POSTS_QUERY_SELECTOR = '.gender3';
 const ADS_QUERY_SELECTOR = '.ad';
 const AUTOPAGERIZER_SELECTOR =
   '.autopagerize_page_separator, .autopagerize_link, .autopagerize_page_info';
