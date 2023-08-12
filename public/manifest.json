@@ -1,10 +1,11 @@
 {
-  "name": "ここにタイトルを挿入",
-  "description": "がめんまっぴんく計画",
+  "name": "better-skype-channel",
+  "default_locale": "ja",
+  "description": "スカちゃんをちょっとだけ便利にします。\nhttps://chrome.google.com/webstore/detail/autopagerize/igiofjhpmpihnifddepnpngfjhkfenbp?hl=ja と合わせてご使用ください。",
   "version": "1.1",
   "manifest_version": 3,
   "action": {
-    "default_title": "ここにタイトルを挿入"
+    "default_title": "better-skype-channel"
   },
   "content_scripts": [
     {
