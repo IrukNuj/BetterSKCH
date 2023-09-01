@@ -1,10 +1,5 @@
-import {
-  BannedUsers,
-  defaultBannedUsers,
-  defaultDisplaySettings,
-  DisplaySettingKey,
-  DisplaySettings,
-} from './types.ts';
+import { defaultBannedUsers, defaultDisplaySettings } from './const.ts';
+import { BannedUsers, DisplaySettingKey, DisplaySettings } from './types.ts';
 
 export const DISPLAY_SETTINGS_STORAGE_KEY = 'displaySettings';
 export const BANNED_USER_STORAGE_KEY = 'bannedUsers';

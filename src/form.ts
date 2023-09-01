@@ -1,3 +1,4 @@
+import { allDisplaySettingKey } from './const.ts';
 import {
   DISPLAY_SETTINGS_STORAGE_KEY,
   loadDataFromLocalStorage,
@@ -9,11 +10,7 @@ import {
   attachGenderButtonStyle,
   attachSubmitButtonStyle,
 } from './style.ts';
-import {
-  allDisplaySettingKey,
-  DisplaySettingKey,
-  DisplaySettings,
-} from './types.ts';
+import { DisplaySettingKey, DisplaySettings } from './types.ts';
 import { displaySettingKeyToGender } from './util.ts';
 
 const GENDER_FILER_BUTTON_ID = 'extension-button-gender-filter';

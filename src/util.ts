@@ -1,14 +1,16 @@
 import {
-  BannedUsers,
   DISPLAY_SETTING_KEY_FEMALE,
   DISPLAY_SETTING_KEY_MALE,
   DISPLAY_SETTING_KEY_NEKAMA,
-  DisplaySettingKey,
-  DisplaySettings,
-  Gender,
   GENDER_CATEGORY_TEXT_FEMALE,
   GENDER_CATEGORY_TEXT_MALE,
   GENDER_CATEGORY_TEXT_NEKAMA,
+} from './const.ts';
+import {
+  BannedUsers,
+  DisplaySettingKey,
+  DisplaySettings,
+  Gender,
 } from './types.ts';
 
 export function genderToDisplaySetting(gender: Gender): DisplaySettingKey {
