@@ -5,7 +5,7 @@ import {
   GENDER_CATEGORY_TEXT_FEMALE,
   GENDER_CATEGORY_TEXT_MALE,
   GENDER_CATEGORY_TEXT_NEKAMA,
-} from './const.ts';
+} from '../constants/displaySettings.ts';
 
 export type Gender =
   | typeof GENDER_CATEGORY_TEXT_MALE
@@ -39,6 +39,3 @@ export type DisplaySettings =
   & IsNekamaHidden;
 
 export type DisplaySettingKey = keyof DisplaySettings;
-
-export type UserId = string;
-export type BannedUsers = UserId[];

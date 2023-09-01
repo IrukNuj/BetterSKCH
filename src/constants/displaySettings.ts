@@ -1,9 +1,8 @@
 import {
-  BannedUsers,
   DisplaySettingKeys,
   DisplaySettings,
   Gender,
-} from './types.ts';
+} from '../type/displaySetting.ts';
 
 export const GENDER_CATEGORY_TEXT_MALE = '男性';
 export const GENDER_CATEGORY_TEXT_FEMALE = '女性';
@@ -30,5 +29,3 @@ export const defaultDisplaySettings: DisplaySettings = {
   [DISPLAY_SETTING_KEY_FEMALE]: false,
   [DISPLAY_SETTING_KEY_NEKAMA]: false,
 };
-
-export const defaultBannedUsers: BannedUsers = [];
