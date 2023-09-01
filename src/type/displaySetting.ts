@@ -12,25 +12,16 @@ export type Gender =
   | typeof GENDER_CATEGORY_TEXT_FEMALE
   | typeof GENDER_CATEGORY_TEXT_NEKAMA;
 
-type IsMaleHidden = {
-  [DISPLAY_SETTING_KEY_MALE]: boolean;
-};
-type IsFemaleHidden = {
-  [DISPLAY_SETTING_KEY_FEMALE]: boolean;
-};
-type IsNekamaHidden = {
-  [DISPLAY_SETTING_KEY_NEKAMA]: boolean;
-};
-
 export type DisplaySettingKeys = [
   typeof DISPLAY_SETTING_KEY_MALE,
   typeof DISPLAY_SETTING_KEY_FEMALE,
   typeof DISPLAY_SETTING_KEY_NEKAMA,
 ];
 
-export type DisplaySettings =
-  & IsMaleHidden
-  & IsFemaleHidden
-  & IsNekamaHidden;
+export type DisplaySettings = {
+  [DISPLAY_SETTING_KEY_MALE]: boolean;
+  [DISPLAY_SETTING_KEY_FEMALE]: boolean;
+  [DISPLAY_SETTING_KEY_NEKAMA]: boolean;
+};
 
 export type DisplaySettingKey = keyof DisplaySettings;

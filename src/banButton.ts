@@ -1,10 +1,7 @@
-import {
-  BANNED_USER_STORAGE_KEY,
-  loadDataFromLocalStorage,
-  saveDataToLocalStorage,
-} from './storage.ts';
+import { BANNED_USER_STORAGE_KEY } from './constants/storage.ts';
+import { loadDataFromLocalStorage, saveDataToLocalStorage } from './storage.ts';
 import { attachBanButtonStyle } from './style.ts';
-import { UserId } from './types.ts';
+import { UserId } from './type/bannedUsers.ts';
 
 const USER_BAN_BUTTON_ID = 'extension-button-user-ban';
 const CLASS_NAME_BLOCKED = 'blocked';

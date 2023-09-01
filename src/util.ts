@@ -5,13 +5,13 @@ import {
   GENDER_CATEGORY_TEXT_FEMALE,
   GENDER_CATEGORY_TEXT_MALE,
   GENDER_CATEGORY_TEXT_NEKAMA,
-} from './const.ts';
+} from './constants/displaySettings.ts';
+import { BannedUsers } from './type/bannedUsers.ts';
 import {
-  BannedUsers,
   DisplaySettingKey,
   DisplaySettings,
   Gender,
-} from './types.ts';
+} from './type/displaySetting.ts';
 
 export function genderToDisplaySetting(gender: Gender): DisplaySettingKey {
   switch (gender) {

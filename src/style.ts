@@ -1,4 +1,4 @@
-import { DisplaySettingKey } from './types.ts';
+import { DisplaySettingKey } from './type/displaySetting.ts';
 
 const resetButtonStyle = (button: HTMLButtonElement) => {
   button.style.backgroundColor = 'transparent';

@@ -56,12 +56,13 @@ const createPopupForm = (currentDisplayOption: DisplaySettings) => {
   submitButton.type = 'submit';
   submitButton.textContent = '表示をきりかえる';
   attachSubmitButtonStyle(submitButton);
+
   form.appendChild(submitButton);
 
   form.addEventListener('submit', (event) => {
     event.preventDefault();
 
-    const selectedOptions: DisplaySettingKey[] = [];
+    const selectedDisplaySettingKeys: DisplaySettingKey[] = [];
     const buttons = form.querySelectorAll(
       `#${GENDER_FILER_BUTTON_ID}`,
     ) as NodeListOf<
@@ -70,12 +71,12 @@ const createPopupForm = (currentDisplayOption: DisplaySettings) => {
 
     buttons.forEach((button: HTMLInputElement) => {
       if (button.classList.contains(CLASS_NAME_SELECTED)) {
-        selectedOptions.push(button.value as DisplaySettingKey);
+        selectedDisplaySettingKeys.push(button.value as DisplaySettingKey);
       }
     });
 
     const formattedDisplaySettings = selectedDisPlaySettingKeysToStorageData(
-      selectedOptions,
+      selectedDisplaySettingKeys,
     );
 
     saveDataToLocalStorage(
