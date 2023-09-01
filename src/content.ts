@@ -1,10 +1,10 @@
 import insertBanButton from './banButton.ts';
-import insertPopupForm from './form.ts';
 import {
   BANNED_USER_STORAGE_KEY,
   DISPLAY_SETTINGS_STORAGE_KEY,
-  loadDataFromLocalStorage,
-} from './storage.ts';
+} from './constants/storage.ts';
+import insertPopupForm from './form.ts';
+import { loadDataFromLocalStorage } from './storage.ts';
 import { filterPosts } from './util.ts';
 
 const ONE_LINE_COUNT = 3;
@@ -14,6 +14,7 @@ const main = () => {
     DISPLAY_SETTINGS_STORAGE_KEY,
   );
   const bannedUserIds = loadDataFromLocalStorage(BANNED_USER_STORAGE_KEY);
+
   const posts = document.getElementById('posts');
   if (!posts) return;
 
@@ -21,6 +22,7 @@ const main = () => {
 
   // 残った投稿お掃除
   const filteredPostElements = document.querySelectorAll('.post');
+
   filteredPostElements.forEach((post, count) => {
     // autopagerizeのicon付与
     const icon = post.querySelector('img');

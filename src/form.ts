@@ -1,6 +1,6 @@
-import { allDisplaySettingKey } from './const.ts';
+import { allDisplaySettingKey } from './constants/displaySettings.ts';
+import { DISPLAY_SETTINGS_STORAGE_KEY } from './constants/storage.ts';
 import {
-  DISPLAY_SETTINGS_STORAGE_KEY,
   loadDataFromLocalStorage,
   saveDataToLocalStorage,
   selectedDisPlaySettingKeysToStorageData,
@@ -10,7 +10,7 @@ import {
   attachGenderButtonStyle,
   attachSubmitButtonStyle,
 } from './style.ts';
-import { DisplaySettingKey, DisplaySettings } from './types.ts';
+import { DisplaySettingKey, DisplaySettings } from './type/displaySetting.ts';
 import { displaySettingKeyToGender } from './util.ts';
 
 const GENDER_FILER_BUTTON_ID = 'extension-button-gender-filter';
@@ -41,10 +41,10 @@ const createPopupForm = (currentDisplayOption: DisplaySettings) => {
 
     button.addEventListener('click', () => {
       if (button.classList.contains(CLASS_NAME_SELECTED)) {
-        button.classList.remove('selected');
+        button.classList.remove(CLASS_NAME_SELECTED);
         button.style.opacity = '0.85';
       } else {
-        button.classList.add('selected');
+        button.classList.add(CLASS_NAME_SELECTED);
         button.style.opacity = '0.3';
       }
     });

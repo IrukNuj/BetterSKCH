@@ -28,11 +28,6 @@ export type DisplaySettingKeys = [
   typeof DISPLAY_SETTING_KEY_NEKAMA,
 ];
 
-export type DisplaySetting =
-  | IsMaleHidden
-  | IsFemaleHidden
-  | IsNekamaHidden;
-
 export type DisplaySettings =
   & IsMaleHidden
   & IsFemaleHidden
