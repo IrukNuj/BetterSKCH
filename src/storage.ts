@@ -17,27 +17,23 @@ const storageKeyToDefaultData = (key: StorageKey): StorageData | null => {
 };
 
 export function selectedDisPlaySettingKeysToStorageData(
-  keys: DisplaySettingKey[],
+  displaySettingKeys: DisplaySettingKey[],
 ): DisplaySettings {
   const data = defaultDisplaySettings;
-  keys.forEach((e) => data[e] = true);
+  displaySettingKeys.forEach((e) => data[e] = true);
   return data;
 }
 
 export function loadDataFromLocalStorage<T extends StorageKey>(
-  key: T,
+  storageKey: T,
 ): AllStorageData[T] {
-  // console.log('key:', key);
-  const data = localStorage.getItem(key);
-  // console.log('loadData:', data);
-  return data ? JSON.parse(data) : storageKeyToDefaultData(key);
+  const data = localStorage.getItem(storageKey);
+  return data ? JSON.parse(data) : storageKeyToDefaultData(storageKey);
 }
 
 export function saveDataToLocalStorage<T extends StorageData>(
-  key: StorageKey,
+  storageKey: StorageKey,
   data: T,
 ) {
-  // console.log('key:', key);
-  localStorage.setItem(key, JSON.stringify(data));
-  // console.log('savedData:', data);
+  localStorage.setItem(storageKey, JSON.stringify(data));
 }
