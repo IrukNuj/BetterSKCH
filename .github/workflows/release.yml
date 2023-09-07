@@ -1,4 +1,5 @@
-name: Build and Release
+name: Build and Upload
+
 on:
   push:
     tags:
@@ -7,25 +8,44 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout Repository
+      - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Install Deno
-        run: |
-          curl -fsSL https://deno.land/x/install/install.sh | sh
-          echo "export PATH=\$HOME/.deno/bin:\$PATH" >> $HOME/.bashrc
-        shell: bash
-
-      - name: Build with Deno
-        run: deno run build
-
-      - name: Create ZIP Archive
-        run: zip -r release.zip /path/to/your/build/output
-
-      - name: Upload Release
-        uses: softprops/action-gh-release@v1
+      - name: Setup Deno
+        uses: denoland/setup-deno@v1
         with:
-          files: release.zip
+          deno-version: 1.36.0 # バージョンを適切に指定
+
+      - name: Build
+        run: |
+          deno run build
+
+      - name: Create ZIP file
+        run: |
+          cd dist
+          zip -r ../release.zip .
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          body: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
+
+      - name: Upload Release Asset
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./release.zip
+          asset_name: release.zip
+          asset_content_type: application/zip
