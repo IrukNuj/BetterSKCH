@@ -1,26 +1,17 @@
-import {
-  DISPLAY_SETTING_KEY_FEMALE,
-  DISPLAY_SETTING_KEY_MALE,
-  DISPLAY_SETTING_KEY_NEKAMA,
-  GENDER_CATEGORY_TEXT_FEMALE,
-  GENDER_CATEGORY_TEXT_MALE,
-  GENDER_CATEGORY_TEXT_NEKAMA,
-} from './constants/displaySettings.ts';
+import { DISPLAY_SETTING_KEY } from './constants/displaySettings.ts';
+import { GENDER_CATEGORY_TEXT } from './constants/gender.ts';
 import { BannedUsers } from './type/bannedUsers.ts';
-import {
-  DisplaySettingKey,
-  DisplaySettings,
-  Gender,
-} from './type/displaySetting.ts';
+import { DisplaySettingKey, DisplaySettings } from './type/displaySetting.ts';
+import { Gender } from './type/gender.ts';
 
 export function genderToDisplaySetting(gender: Gender): DisplaySettingKey {
   switch (gender) {
-    case GENDER_CATEGORY_TEXT_MALE:
-      return DISPLAY_SETTING_KEY_MALE;
-    case GENDER_CATEGORY_TEXT_FEMALE:
-      return DISPLAY_SETTING_KEY_FEMALE;
-    case GENDER_CATEGORY_TEXT_NEKAMA:
-      return DISPLAY_SETTING_KEY_NEKAMA;
+    case GENDER_CATEGORY_TEXT.MALE:
+      return DISPLAY_SETTING_KEY.MALE;
+    case GENDER_CATEGORY_TEXT.FEMALE:
+      return DISPLAY_SETTING_KEY.FEMALE;
+    case GENDER_CATEGORY_TEXT.NEKAMA:
+      return DISPLAY_SETTING_KEY.NEKAMA;
   }
 }
 
@@ -28,12 +19,12 @@ export function displaySettingKeyToGender(
   displaySettingKey: DisplaySettingKey,
 ): Gender {
   switch (displaySettingKey) {
-    case DISPLAY_SETTING_KEY_MALE:
-      return GENDER_CATEGORY_TEXT_MALE;
-    case DISPLAY_SETTING_KEY_FEMALE:
-      return GENDER_CATEGORY_TEXT_FEMALE;
-    case DISPLAY_SETTING_KEY_NEKAMA:
-      return GENDER_CATEGORY_TEXT_NEKAMA;
+    case DISPLAY_SETTING_KEY.MALE:
+      return GENDER_CATEGORY_TEXT.MALE;
+    case DISPLAY_SETTING_KEY.FEMALE:
+      return GENDER_CATEGORY_TEXT.FEMALE;
+    case DISPLAY_SETTING_KEY.NEKAMA:
+      return GENDER_CATEGORY_TEXT.NEKAMA;
   }
 }
 
