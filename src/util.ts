@@ -75,4 +75,6 @@ export function filterPosts(
     ).join(',');
     removeBannedUserPosts(posts.querySelectorAll(bannedUserSelector));
   }
+
+  return posts;
 }
