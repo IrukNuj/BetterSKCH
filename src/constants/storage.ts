@@ -1,2 +1,4 @@
-export const DISPLAY_SETTINGS_STORAGE_KEY = 'displaySettings';
-export const BANNED_USER_STORAGE_KEY = 'bannedUsers';
+export const STORAGE_KEY = {
+  DISPLAY_SETTINGS: 'displaySettings',
+  BANNED_USER: 'bannedUsers',
+} as const;

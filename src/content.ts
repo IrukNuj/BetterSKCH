@@ -1,8 +1,5 @@
 import insertBanButton from './banButton.ts';
-import {
-  BANNED_USER_STORAGE_KEY,
-  DISPLAY_SETTINGS_STORAGE_KEY,
-} from './constants/storage.ts';
+import { STORAGE_KEY } from './constants/storage.ts';
 import insertPopupForm from './form.ts';
 import { loadDataFromLocalStorage } from './storage.ts';
 import { filterPosts } from './util.ts';
@@ -11,9 +8,9 @@ const ONE_LINE_COUNT = 3;
 
 const main = () => {
   const displaySettings = loadDataFromLocalStorage(
-    DISPLAY_SETTINGS_STORAGE_KEY,
+    STORAGE_KEY.DISPLAY_SETTINGS,
   );
-  const bannedUserIds = loadDataFromLocalStorage(BANNED_USER_STORAGE_KEY);
+  const bannedUserIds = loadDataFromLocalStorage(STORAGE_KEY.BANNED_USER);
 
   const posts = document.getElementById('posts');
   if (!posts) return;

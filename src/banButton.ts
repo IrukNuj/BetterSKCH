@@ -1,4 +1,4 @@
-import { BANNED_USER_STORAGE_KEY } from './constants/storage.ts';
+import { STORAGE_KEY } from './constants/storage.ts';
 import { loadDataFromLocalStorage, saveDataToLocalStorage } from './storage.ts';
 import { attachBanButtonStyle } from './style.ts';
 import { UserId } from './type/bannedUsers.ts';
@@ -20,7 +20,7 @@ const createBanButton = (userId: UserId) => {
 
   banButton.addEventListener('click', () => {
     const isAlreadyBlocked = banButton.classList.contains(CLASS_NAME_BLOCKED);
-    const storageData = loadDataFromLocalStorage(BANNED_USER_STORAGE_KEY);
+    const storageData = loadDataFromLocalStorage(STORAGE_KEY.BANNED_USER);
     const isStorageDataHasUserId = storageData.includes(userId);
 
     if (isAlreadyBlocked) {
@@ -32,7 +32,7 @@ const createBanButton = (userId: UserId) => {
       if (isStorageDataHasUserId) {
         const unBlockedData = new Set(storageData);
         unBlockedData.delete(userId);
-        saveDataToLocalStorage(BANNED_USER_STORAGE_KEY, [...unBlockedData]);
+        saveDataToLocalStorage(STORAGE_KEY.BANNED_USER, [...unBlockedData]);
       }
       // deno-lint-ignore ban-ts-comment
       // @ts-ignore
@@ -47,7 +47,7 @@ const createBanButton = (userId: UserId) => {
       if (!isStorageDataHasUserId) {
         const blockedData = new Set(storageData);
         blockedData.add(userId);
-        saveDataToLocalStorage(BANNED_USER_STORAGE_KEY, [...blockedData]);
+        saveDataToLocalStorage(STORAGE_KEY.BANNED_USER, [...blockedData]);
       }
 
       // deno-lint-ignore ban-ts-comment

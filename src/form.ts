@@ -1,5 +1,5 @@
 import { allDisplaySettingKey } from './constants/displaySettings.ts';
-import { DISPLAY_SETTINGS_STORAGE_KEY } from './constants/storage.ts';
+import { STORAGE_KEY } from './constants/storage.ts';
 import {
   loadDataFromLocalStorage,
   saveDataToLocalStorage,
@@ -15,10 +15,6 @@ import { displaySettingKeyToGender } from './util.ts';
 
 const GENDER_FILER_BUTTON_ID = 'extension-button-gender-filter';
 const CLASS_NAME_SELECTED = 'selected';
-
-const currentDisplayOption = loadDataFromLocalStorage(
-  DISPLAY_SETTINGS_STORAGE_KEY,
-);
 
 const createPopupForm = (currentDisplayOption: DisplaySettings) => {
   const formContainer = document.createElement('div');
@@ -80,7 +76,7 @@ const createPopupForm = (currentDisplayOption: DisplaySettings) => {
     );
 
     saveDataToLocalStorage(
-      DISPLAY_SETTINGS_STORAGE_KEY,
+      STORAGE_KEY.DISPLAY_SETTINGS,
       formattedDisplaySettings,
     );
     location.reload();
@@ -91,6 +87,10 @@ const createPopupForm = (currentDisplayOption: DisplaySettings) => {
 };
 
 function insertPopupForm() {
+  const currentDisplayOption = loadDataFromLocalStorage(
+    STORAGE_KEY.DISPLAY_SETTINGS,
+  );
+
   const targetElement = document.querySelector('#posts');
   if (targetElement) {
     const formContainer = createPopupForm(currentDisplayOption);

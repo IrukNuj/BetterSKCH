@@ -1,17 +1,14 @@
 import { defaultBannedUsers } from './constants/bannedUsers.ts';
 import { defaultDisplaySettings } from './constants/displaySettings.ts';
-import {
-  BANNED_USER_STORAGE_KEY,
-  DISPLAY_SETTINGS_STORAGE_KEY,
-} from './constants/storage.ts';
+import { STORAGE_KEY } from './constants/storage.ts';
 import { DisplaySettingKey, DisplaySettings } from './type/displaySetting.ts';
 import { AllStorageData, StorageData, StorageKey } from './type/storage.ts';
 
 const storageKeyToDefaultData = (key: StorageKey): StorageData | null => {
   switch (key) {
-    case DISPLAY_SETTINGS_STORAGE_KEY:
+    case STORAGE_KEY.DISPLAY_SETTINGS:
       return defaultDisplaySettings;
-    case BANNED_USER_STORAGE_KEY:
+    case STORAGE_KEY.BANNED_USER:
       return defaultBannedUsers;
   }
 };
