@@ -4,6 +4,9 @@ import { BannedUsers } from './type/bannedUsers.ts';
 import { DisplaySettingKey, DisplaySettings } from './type/displaySetting.ts';
 import { Gender } from './type/gender.ts';
 
+/**
+ * ex. "男性" -> "isMaleHidden"
+ */
 export function genderToDisplaySetting(gender: Gender): DisplaySettingKey {
   switch (gender) {
     case GENDER_CATEGORY_TEXT.MALE:
@@ -15,6 +18,9 @@ export function genderToDisplaySetting(gender: Gender): DisplaySettingKey {
   }
 }
 
+/**
+ * ex. "isMaleHidden" -> "男性"
+ */
 export function displaySettingKeyToGender(
   displaySettingKey: DisplaySettingKey,
 ): Gender {
@@ -49,6 +55,10 @@ const NEKAMA_POSTS_QUERY_SELECTOR = '.gender3';
 const ADS_QUERY_SELECTOR = '.ad';
 const AUTOPAGERIZER_SELECTOR =
   '.autopagerize_page_separator, .autopagerize_link, .autopagerize_page_info';
+
+/**
+ * filter: displaySetting, bannedUser, ad, autopagerizer
+ */
 
 export function filterPosts(
   displaySettings: DisplaySettings,
