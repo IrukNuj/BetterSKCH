@@ -34,8 +34,6 @@ const createBanButton = (userId: UserId) => {
         unBlockedData.delete(userId);
         saveDataToLocalStorage(STORAGE_KEY.BANNED_USERS, [...unBlockedData]);
       }
-      // deno-lint-ignore ban-ts-comment
-      // @ts-ignore
       if (bannedUserPost) {
         bannedUserPost.style.opacity = '1.0';
       }
@@ -49,9 +47,6 @@ const createBanButton = (userId: UserId) => {
         blockedData.add(userId);
         saveDataToLocalStorage(STORAGE_KEY.BANNED_USERS, [...blockedData]);
       }
-
-      // deno-lint-ignore ban-ts-comment
-      // @ts-ignore
       if (bannedUserPost) {
         bannedUserPost.style.opacity = '0.3';
       }
