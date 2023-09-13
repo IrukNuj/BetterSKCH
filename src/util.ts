@@ -58,7 +58,7 @@ const AUTOPAGERIZER_SELECTOR =
   '.autopagerize_page_separator, .autopagerize_link, .autopagerize_page_info';
 
 /**
- * filter項目: displaySetting, bannedUser, ad, autopagerizer
+ * filter項目: displaySetting, bannedUser, bannedWords, ad, autopagerizer
  */
 
 export function filterPosts(
@@ -89,19 +89,28 @@ export function filterPosts(
   }
 
   if (bannedWords.length !== 0) {
-    const posts_ = posts.querySelectorAll('*');
-    posts_.forEach((post) => {
-      const postText = post.textContent;
+    const postsNodeList = posts.querySelectorAll('.post');
+    // deno-lint-ignore ban-ts-comment
+    // @ts-ignore
+    const bannedPosts = [];
+    postsNodeList.forEach((post) => {
+      const postTitle = post.querySelector('.post-title')?.textContent;
+      const postText = post.querySelector('.post-body')?.textContent;
+      const postContent = `${postTitle} ${postText}`;
+
       if (!postText) return;
       const isBanned = bannedWords.some((bannedWord) =>
-        postText.includes(bannedWord)
+        postContent.includes(bannedWord)
       );
-      if (isBanned) {
-        console.log(post);
-        post.remove();
-      }
+      if (isBanned) bannedPosts.push(post);
+      return;
     });
+    // deno-lint-ignore ban-ts-comment
+    // @ts-ignore
+    removeElements(bannedPosts as NodeListOf<Element>);
   }
 
-  return posts;
+  // deno-lint-ignore ban-ts-comment
+  // @ts-ignore
+  return posts as NodeListOf<Element>;
 }

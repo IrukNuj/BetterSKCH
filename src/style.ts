@@ -56,8 +56,22 @@ export function attachSubmitButtonStyle(submitButton: HTMLButtonElement) {
 
   submitButton.style.background = '#ecf0f1';
   submitButton.style.height = '30px';
+  submitButton.style.borderRadius = '2px';
   submitButton.style.padding = '0 16px';
   submitButton.style.color = 'rgb(52, 73, 94)';
+}
+
+export function attachInformationButtonStyle(
+  informationButton: HTMLButtonElement,
+) {
+  attachButtonBaseStyle(informationButton);
+
+  informationButton.style.background = 'rgb(255 221 168)';
+  informationButton.style.height = '30px';
+  informationButton.style.padding = '0 16px';
+  informationButton.style.color = 'rgb(52, 73, 94)';
+
+  informationButton.style.borderRadius = '2px';
 }
 
 export function attachBanButtonStyle(

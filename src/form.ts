@@ -8,6 +8,7 @@ import {
 import {
   attachFormContainerStyle,
   attachGenderButtonStyle,
+  attachInformationButtonStyle,
   attachSubmitButtonStyle,
 } from './style.ts';
 import { DisplaySettingKey, DisplaySettings } from './type/displaySetting.ts';
@@ -15,6 +16,7 @@ import { displaySettingKeyToGender } from './util.ts';
 
 const GENDER_FILER_BUTTON_ID = 'extension-button-gender-filter';
 const CLASS_NAME_SELECTED = 'selected';
+const INFORMATION_URL = 'https://pastebin.com/Rch1BF3a';
 
 const createPopupForm = (currentDisplayOption: DisplaySettings) => {
   const formContainer = document.createElement('div');
@@ -48,12 +50,12 @@ const createPopupForm = (currentDisplayOption: DisplaySettings) => {
     form.appendChild(button);
   });
 
-  const banWordForm = document.createElement('input');
-  banWordForm.type = 'text';
-  banWordForm.name = 'banWord';
-  banWordForm.placeholder = 'banWord';
-  banWordForm.value = '';
-  form.appendChild(banWordForm);
+  // const banWordForm = document.createElement('input');
+  // banWordForm.type = 'text';
+  // banWordForm.name = 'banWord';
+  // banWordForm.placeholder = 'banWord';
+  // banWordForm.value = '';
+  // form.appendChild(banWordForm);
 
   const submitButton = document.createElement('button');
   submitButton.type = 'submit';
@@ -93,7 +95,27 @@ const createPopupForm = (currentDisplayOption: DisplaySettings) => {
   return formContainer;
 };
 
-function insertPopupForm() {
+const createInformationForm = () => {
+  const formContainer = document.createElement('div');
+  attachFormContainerStyle(formContainer);
+  const form = document.createElement('form');
+
+  const informationLinkButton = document.createElement('button');
+  informationLinkButton.type = 'button';
+  informationLinkButton.textContent = 'お知らせ';
+  attachInformationButtonStyle(informationLinkButton);
+
+  informationLinkButton.addEventListener('click', () => {
+    window.open(INFORMATION_URL);
+  });
+
+  form.appendChild(informationLinkButton);
+  formContainer.appendChild(form);
+
+  return formContainer;
+};
+
+const insertPopupForm = () => {
   const currentDisplayOption = loadDataFromLocalStorage(
     STORAGE_KEY.DISPLAY_SETTINGS,
   );
@@ -102,7 +124,12 @@ function insertPopupForm() {
   if (targetElement) {
     const formContainer = createPopupForm(currentDisplayOption);
     targetElement.insertAdjacentElement('beforebegin', formContainer);
+    const informationFormContainer = createInformationForm();
+    targetElement.insertAdjacentElement(
+      'beforebegin',
+      informationFormContainer,
+    );
   }
-}
+};
 
 export default insertPopupForm;
