@@ -20,7 +20,7 @@ const createBanButton = (userId: UserId) => {
 
   banButton.addEventListener('click', () => {
     const isAlreadyBlocked = banButton.classList.contains(CLASS_NAME_BLOCKED);
-    const storageData = loadDataFromLocalStorage(STORAGE_KEY.BANNED_USER);
+    const storageData = loadDataFromLocalStorage(STORAGE_KEY.BANNED_USERS);
     const isStorageDataHasUserId = storageData.includes(userId);
 
     if (isAlreadyBlocked) {
@@ -32,7 +32,7 @@ const createBanButton = (userId: UserId) => {
       if (isStorageDataHasUserId) {
         const unBlockedData = new Set(storageData);
         unBlockedData.delete(userId);
-        saveDataToLocalStorage(STORAGE_KEY.BANNED_USER, [...unBlockedData]);
+        saveDataToLocalStorage(STORAGE_KEY.BANNED_USERS, [...unBlockedData]);
       }
       // deno-lint-ignore ban-ts-comment
       // @ts-ignore
@@ -47,7 +47,7 @@ const createBanButton = (userId: UserId) => {
       if (!isStorageDataHasUserId) {
         const blockedData = new Set(storageData);
         blockedData.add(userId);
-        saveDataToLocalStorage(STORAGE_KEY.BANNED_USER, [...blockedData]);
+        saveDataToLocalStorage(STORAGE_KEY.BANNED_USERS, [...blockedData]);
       }
 
       // deno-lint-ignore ban-ts-comment

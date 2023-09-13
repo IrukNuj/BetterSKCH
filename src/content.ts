@@ -31,8 +31,6 @@ const addBunButton = (post: Element) => {
 };
 /**
  * css整理, 投稿を並べ直します
- * @param post
- * @param count
  *  mod(1~3)
  */
 const replacePlacement = (post: Element, count: number) => {
@@ -51,12 +49,13 @@ const main = () => {
   const displaySettings = loadDataFromLocalStorage(
     STORAGE_KEY.DISPLAY_SETTINGS,
   );
-  const bannedUserIds = loadDataFromLocalStorage(STORAGE_KEY.BANNED_USER);
+  const bannedUserIds = loadDataFromLocalStorage(STORAGE_KEY.BANNED_USERS);
+  const bannedWords = loadDataFromLocalStorage(STORAGE_KEY.BANNED_WORDS);
 
   const posts = document.getElementById('posts');
   if (!posts) return;
 
-  filterPosts(displaySettings, bannedUserIds, posts);
+  filterPosts(displaySettings, bannedUserIds, bannedWords, posts);
 
   // 残った投稿お掃除
   const filteredPostElements = document.querySelectorAll('.post');

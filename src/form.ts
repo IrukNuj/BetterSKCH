@@ -48,6 +48,13 @@ const createPopupForm = (currentDisplayOption: DisplaySettings) => {
     form.appendChild(button);
   });
 
+  const banWordForm = document.createElement('input');
+  banWordForm.type = 'text';
+  banWordForm.name = 'banWord';
+  banWordForm.placeholder = 'banWord';
+  banWordForm.value = '';
+  form.appendChild(banWordForm);
+
   const submitButton = document.createElement('button');
   submitButton.type = 'submit';
   submitButton.textContent = '表示をきりかえる';

@@ -1,5 +1,6 @@
 import { DISPLAY_SETTING_KEY } from './constants/displaySettings.ts';
 import { GENDER_CATEGORY_TEXT } from './constants/gender.ts';
+import { BannedWords } from './type/banWords.ts';
 import { BannedUsers } from './type/bannedUsers.ts';
 import { DisplaySettingKey, DisplaySettings } from './type/displaySetting.ts';
 import { Gender } from './type/gender.ts';
@@ -57,12 +58,13 @@ const AUTOPAGERIZER_SELECTOR =
   '.autopagerize_page_separator, .autopagerize_link, .autopagerize_page_info';
 
 /**
- * filter: displaySetting, bannedUser, ad, autopagerizer
+ * filter項目: displaySetting, bannedUser, ad, autopagerizer
  */
 
 export function filterPosts(
   displaySettings: DisplaySettings,
   bannedUserIds: BannedUsers,
+  bannedWords: BannedWords,
   posts: HTMLElement,
 ) {
   const { isMaleHidden, isFemaleHidden, isNekamaHidden } = displaySettings;
@@ -84,6 +86,21 @@ export function filterPosts(
       (v) => `input[value='${v}']`,
     ).join(',');
     removeBannedUserPosts(posts.querySelectorAll(bannedUserSelector));
+  }
+
+  if (bannedWords.length !== 0) {
+    const posts_ = posts.querySelectorAll('*');
+    posts_.forEach((post) => {
+      const postText = post.textContent;
+      if (!postText) return;
+      const isBanned = bannedWords.some((bannedWord) =>
+        postText.includes(bannedWord)
+      );
+      if (isBanned) {
+        console.log(post);
+        post.remove();
+      }
+    });
   }
 
   return posts;
