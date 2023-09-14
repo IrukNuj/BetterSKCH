@@ -77,4 +77,8 @@ export const defaultBannedWords: BannedWords = [
   'ビデ',
   // 'タグ',
   'BAN',
+  '都内',
+  '関東',
+  '都度',
+  '都合',
 ];
