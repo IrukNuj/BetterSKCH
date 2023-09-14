@@ -1,4 +1,5 @@
 export const STORAGE_KEY = {
   DISPLAY_SETTINGS: 'displaySettings',
-  BANNED_USER: 'bannedUsers',
+  BANNED_USERS: 'bannedUsers',
+  BANNED_WORDS: 'bannedWords',
 } as const;

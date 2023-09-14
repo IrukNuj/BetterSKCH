@@ -1,9 +1,13 @@
 import { DISPLAY_SETTING_KEY } from './constants/displaySettings.ts';
 import { GENDER_CATEGORY_TEXT } from './constants/gender.ts';
+import { BannedWords } from './type/banWords.ts';
 import { BannedUsers } from './type/bannedUsers.ts';
 import { DisplaySettingKey, DisplaySettings } from './type/displaySetting.ts';
 import { Gender } from './type/gender.ts';
 
+/**
+ * ex. "男性" -> "isMaleHidden"
+ */
 export function genderToDisplaySetting(gender: Gender): DisplaySettingKey {
   switch (gender) {
     case GENDER_CATEGORY_TEXT.MALE:
@@ -15,6 +19,9 @@ export function genderToDisplaySetting(gender: Gender): DisplaySettingKey {
   }
 }
 
+/**
+ * ex. "isMaleHidden" -> "男性"
+ */
 export function displaySettingKeyToGender(
   displaySettingKey: DisplaySettingKey,
 ): Gender {
@@ -50,9 +57,14 @@ const ADS_QUERY_SELECTOR = '.ad';
 const AUTOPAGERIZER_SELECTOR =
   '.autopagerize_page_separator, .autopagerize_link, .autopagerize_page_info';
 
+/**
+ * filter項目: displaySetting, bannedUser, bannedWords, ad, autopagerizer
+ */
+
 export function filterPosts(
   displaySettings: DisplaySettings,
   bannedUserIds: BannedUsers,
+  bannedWords: BannedWords,
   posts: HTMLElement,
 ) {
   const { isMaleHidden, isFemaleHidden, isNekamaHidden } = displaySettings;
@@ -76,5 +88,29 @@ export function filterPosts(
     removeBannedUserPosts(posts.querySelectorAll(bannedUserSelector));
   }
 
-  return posts;
+  if (bannedWords.length !== 0) {
+    const postsNodeList = posts.querySelectorAll('.post');
+    // deno-lint-ignore ban-ts-comment
+    // @ts-ignore
+    const bannedPosts = [];
+    postsNodeList.forEach((post) => {
+      const postTitle = post.querySelector('.post-title')?.textContent;
+      const postText = post.querySelector('.post-body')?.textContent;
+      const postContent = `${postTitle} ${postText}`;
+
+      if (!postText) return;
+      const isBanned = bannedWords.some((bannedWord) =>
+        postContent.includes(bannedWord)
+      );
+      if (isBanned) bannedPosts.push(post);
+      return;
+    });
+    // deno-lint-ignore ban-ts-comment
+    // @ts-ignore
+    removeElements(bannedPosts as NodeListOf<Element>);
+  }
+
+  // deno-lint-ignore ban-ts-comment
+  // @ts-ignore
+  return posts as NodeListOf<Element>;
 }
