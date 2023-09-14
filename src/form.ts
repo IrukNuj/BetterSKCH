@@ -16,7 +16,8 @@ import { displaySettingKeyToGender } from './util.ts';
 
 const GENDER_FILER_BUTTON_ID = 'extension-button-gender-filter';
 const CLASS_NAME_SELECTED = 'selected';
-const INFORMATION_URL = 'https://pastebin.com/us6tCyvS';
+
+const INFORMATION_URL = 'https://pastebin.com/ZydDL2hJ';
 
 const createPopupForm = (currentDisplayOption: DisplaySettings) => {
   const formContainer = document.createElement('div');
