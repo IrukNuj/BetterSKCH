@@ -28,8 +28,8 @@ import { BannedWords } from '../type/banWords.ts';
  *
  * @[update]: en
  *
- * In order to remove inappropriate posts, we have added the ability to remove posts that contain the following (only some of the words listed) on a trial basis.
- * We plan to allow users to set this if there is demand.
+ * In order to remove inappropriate posts, we have added the function to remove posts that contain the following (only some of the words listed) on a trial basis.
+ * I plan to allow users to set this if there is demand.
  *
  * @[wanted]: en
  *
@@ -38,7 +38,7 @@ import { BannedWords } from '../type/banWords.ts';
  * at: https://discordapp.com/users/1002897965758816277
  * anonymity: https://docs.google.com/forms/d/1iOxCW37bGS0qV2vztakbfigaCCs1SyKSZj8xmqpqCxY/viewform
  *
- * If you have any inappropriate or objectionable postings that have not been addressed in this update, we would appreciate it if you could contact us to update the word list.
+ * If you saw any inappropriate or objectionable postings that have not been addressed in this update, we would appreciate it if you could contact us to update the word list.
  * It would be helpful if you could contact us in the following format.
  *
  * url: [URL of the corresponding post]
@@ -46,7 +46,7 @@ import { BannedWords } from '../type/banWords.ts';
  *
  * @[tweet]: en
  *
- * plz feel free to ask me anything from feedback to questions. I'll be glad.
+ * plz feel free to ask me anything from feedback to questions. I'll be glad :)
  */
 
 export const defaultBannedWords: BannedWords = [
@@ -75,6 +75,6 @@ export const defaultBannedWords: BannedWords = [
   '買って',
   'ビデオ',
   'ビデ',
-  'タグ',
+  // 'タグ',
   'BAN',
 ];
