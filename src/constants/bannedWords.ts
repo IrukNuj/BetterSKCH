@@ -37,8 +37,10 @@ export const defaultBannedWords: BannedWords = [
   'pay',
   'ペイ',
   // ...etc
-  '金',
+  'お金',
   'おな',
+  'ona',
+  'おna',
   'ロック',
   '後',
   '動画',
@@ -55,4 +57,5 @@ export const defaultBannedWords: BannedWords = [
   '買って',
   'ビデオ',
   'ビデ',
+  'タグ',
 ];
