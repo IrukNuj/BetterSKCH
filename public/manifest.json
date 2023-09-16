@@ -1,7 +1,7 @@
 {
   "name": "Better Skype Channel",
   "description": "スカちゃんをちょっとだけ便利にします。\nhttps://chrome.google.com/webstore/detail/autopagerize/igiofjhpmpihnifddepnpngfjhkfenbp?hl=ja と合わせてご使用ください。",
-  "version": "1.1.2",
+  "version": "1.1.2.1",
   "manifest_version": 3,
   "action": {
     "default_title": "Better Skype Channel"

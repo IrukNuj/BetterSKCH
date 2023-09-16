@@ -3,12 +3,14 @@ import { BannedWords } from '../type/banWords.ts';
 export const defaultBannedWords: BannedWords = [
   'ぺい',
   'pay',
+  'Pay',
   'ペイ',
   'ぺぃ',
   // ...etc
   'お金',
   'おな',
   'ona',
+  'ONA',
   'おna',
   'ロック',
   '後',
@@ -35,4 +37,9 @@ export const defaultBannedWords: BannedWords = [
   '戦利品',
   'やりとり',
   '先払',
+  '円欲',
+  'えん欲',
+  'リピ',
+  'リピーター',
+  'http',
 ];
