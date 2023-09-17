@@ -28,7 +28,7 @@ const createPopupForm = (currentDisplayOption: DisplaySettings) => {
   allDisplaySettingKey.forEach((displaySettingKey: DisplaySettingKey) => {
     const button = document.createElement('button');
     button.type = 'button';
-    button.id = GENDER_FILER_BUTTON_ID;
+    button.id = `${GENDER_FILER_BUTTON_ID}-${displaySettingKey}`;
     button.name = 'gender';
     button.value = displaySettingKey;
     button.innerText = displaySettingKeyToGender(displaySettingKey);

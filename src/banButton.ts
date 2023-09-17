@@ -12,7 +12,7 @@ const createBanButton = (userId: UserId) => {
     ?.parentElement;
 
   banButton.type = 'button';
-  banButton.id = USER_BAN_BUTTON_ID;
+  banButton.id = `${USER_BAN_BUTTON_ID}-${userId}`;
   banButton.name = 'user-ban';
   banButton.className = 'user-ban-button';
   banButton.innerText = 'ブロック';
