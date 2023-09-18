@@ -36,6 +36,7 @@ export const defaultBannedWords: BannedWords = [
   '都合',
   '戦利品',
   'やりとり',
+  'やり取り',
   '先払',
   '円欲',
   'えん欲',
