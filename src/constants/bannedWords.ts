@@ -42,4 +42,5 @@ export const defaultBannedWords: BannedWords = [
   'リピ',
   'リピーター',
   'http',
+  '投稿',
 ];
