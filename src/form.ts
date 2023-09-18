@@ -69,9 +69,9 @@ const createPopupForm = (currentDisplayOption: DisplaySettings) => {
     event.preventDefault();
 
     const selectedDisplaySettingKeys: DisplaySettingKey[] = [];
-    const selector = allDisplaySettingKey.map((key) => {
-      `#${GENDER_FILER_BUTTON_ID}-${key}`;
-    }).join(',');
+    const selector = allDisplaySettingKey.map((key) =>
+      `#${GENDER_FILER_BUTTON_ID}-${key}`
+    ).join(',');
     const buttons = form.querySelectorAll(selector) as NodeListOf<
       HTMLInputElement
     >;
