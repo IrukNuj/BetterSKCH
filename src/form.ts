@@ -72,7 +72,7 @@ const createPopupForm = (currentDisplayOption: DisplaySettings) => {
     const selector = allDisplaySettingKey.map((key) => {
       `#${GENDER_FILER_BUTTON_ID}-${key}`;
     }).join(',');
-    const buttons = form.querySelectorAll() as NodeListOf<
+    const buttons = form.querySelectorAll(selector) as NodeListOf<
       HTMLInputElement
     >;
 
