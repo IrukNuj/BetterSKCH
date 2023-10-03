@@ -66,11 +66,11 @@ export function attachInformationButtonStyle(
 ) {
   attachButtonBaseStyle(informationButton);
 
-  informationButton.style.background = 'rgb(255 221 168)';
+  informationButton.style.background = 'rgba(255, 221, 168, 0.75)';
   informationButton.style.height = '24px';
   informationButton.style.fontSize = '12px';
   informationButton.style.padding = '0 16px';
-  informationButton.style.color = 'rgb(52, 73, 94)';
+  informationButton.style.color = 'rgba(52, 73, 94,0.9)';
 
   informationButton.style.borderRadius = '2px';
 }

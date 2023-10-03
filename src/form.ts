@@ -18,6 +18,9 @@ const GENDER_FILER_BUTTON_ID = 'extension-button-gender-filter';
 const CLASS_NAME_SELECTED = 'selected';
 
 const INFORMATION_URL = 'https://pastebin.com/ZydDL2hJ';
+const CONTACT_ADDRESS_SKYPE = 'skype:live:.cid.e68c135c7a9211ee?chat';
+
+const INFORM_BUTTON_TEXT = 'お知らせ: ' + 'v1.1.3.1';
 
 const createPopupForm = (currentDisplayOption: DisplaySettings) => {
   const formContainer = document.createElement('div');
@@ -104,16 +107,26 @@ const createInformationForm = () => {
 
   const informationLinkButton = document.createElement('button');
   informationLinkButton.type = 'button';
-  informationLinkButton.textContent = 'お知らせ';
+  informationLinkButton.textContent = INFORM_BUTTON_TEXT;
   attachInformationButtonStyle(informationLinkButton);
 
   informationLinkButton.addEventListener('click', () => {
     window.open(INFORMATION_URL);
   });
-
   form.appendChild(informationLinkButton);
-  formContainer.appendChild(form);
 
+  const contactLinkButton = document.createElement('button');
+  contactLinkButton.type = 'button';
+  contactLinkButton.textContent = '要望, 連絡はこちら！';
+  contactLinkButton.style.marginLeft = '8px';
+  contactLinkButton.style.backgroundColor = '#fff';
+  attachInformationButtonStyle(contactLinkButton);
+
+  contactLinkButton.onclick = () =>
+    window.location.href = CONTACT_ADDRESS_SKYPE;
+  form.appendChild(contactLinkButton);
+
+  formContainer.appendChild(form);
   return formContainer;
 };
 
