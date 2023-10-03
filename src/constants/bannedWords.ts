@@ -9,6 +9,9 @@ const adminBannedWords: BannedWords = [
   'LOL',
   'LoL',
   'lol',
+  '原神',
+  '晒し',
+  '自己紹介',
   '返信',
   'こうかん',
   '交換',
@@ -19,6 +22,7 @@ const adminBannedWords: BannedWords = [
   '挨拶',
   'あいさつ',
   '会議',
+  'マッチョ',
 ];
 const allBannedWords: BannedWords = [
   'ぺい',
