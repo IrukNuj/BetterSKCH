@@ -23,6 +23,11 @@ const adminBannedWords: BannedWords = [
   'あいさつ',
   '会議',
   'マッチョ',
+  '男の娘',
+  'おとこの娘',
+  'お小遣い',
+  'おこづかい',
+  'おこずかい',
 ];
 const allBannedWords: BannedWords = [
   'ぺい',
