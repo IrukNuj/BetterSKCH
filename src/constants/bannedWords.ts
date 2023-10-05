@@ -1,7 +1,6 @@
 import { BannedWords } from '../type/banWords.ts';
 
-const isDev = false;
-
+const isDev = true;
 const adminBannedWords: BannedWords = [
   '依存',
   'valorant',
@@ -92,6 +91,8 @@ const allBannedWords: BannedWords = [
   'おこずかい',
 ];
 
+// deno-lint-ignore ban-ts-comment
+// @ts-ignore
 export const defaultBannedWords: BannedWords = isDev
   ? allBannedWords.concat(adminBannedWords)
   : allBannedWords;
