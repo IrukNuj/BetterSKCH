@@ -95,4 +95,4 @@ const allBannedWords: BannedWords = [
 // @ts-ignore
 export const defaultBannedWords: BannedWords = isDev
   ? allBannedWords.concat(adminBannedWords)
-  : null;
+  : [];
