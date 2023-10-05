@@ -14,13 +14,17 @@ import {
 import { DisplaySettingKey, DisplaySettings } from './type/displaySetting.ts';
 import { displaySettingKeyToGender } from './util.ts';
 
+const manifestVersion = import('../public/manifest.json').then((manifest) => {
+  return manifest.default.version;
+});
+
 const GENDER_FILER_BUTTON_ID = 'extension-button-gender-filter';
 const CLASS_NAME_SELECTED = 'selected';
 
 const INFORMATION_URL = 'https://pastebin.com/ZydDL2hJ';
 const CONTACT_ADDRESS_SKYPE = 'skype:live:.cid.e68c135c7a9211ee?chat';
 
-const INFORM_BUTTON_TEXT = 'お知らせ: ' + 'v1.1.3.1';
+const INFORM_BUTTON_TEXT = 'お知らせ: ' + manifestVersion;
 
 const createPopupForm = (currentDisplayOption: DisplaySettings) => {
   const formContainer = document.createElement('div');
