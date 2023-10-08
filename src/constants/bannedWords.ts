@@ -1,8 +1,8 @@
 import { BannedWords } from '../type/banWords.ts';
 
-const isDev = false;
+const isDev = true;
 const adminBannedWords: BannedWords = [
-  '依存',
+  // '依存',
   'valorant',
   'FF14',
   'LOL',
