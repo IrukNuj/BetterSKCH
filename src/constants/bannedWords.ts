@@ -15,7 +15,7 @@ const adminBannedWords: BannedWords = [
   'こうかん',
   '交換',
   'へんしん',
-  // '寝落ち',
+  '寝落ち',
   '年齢',
   'ねんれい',
   '挨拶',
