@@ -14,7 +14,7 @@ import {
 import { DisplaySettingKey, DisplaySettings } from './type/displaySetting.ts';
 import { displaySettingKeyToGender } from './util.ts';
 
-const manifestVersion = 'v1.1.3.3';
+const manifestVersion = 'v1.1.4.0';
 const GENDER_FILER_BUTTON_ID = 'extension-button-gender-filter';
 const CLASS_NAME_SELECTED = 'selected';
 

@@ -55,16 +55,16 @@ const main = () => {
   const posts = document.getElementById('posts');
   if (!posts) return;
 
-  filterPosts(displaySettings, bannedUserIds, bannedWords, posts);
+  // filterPosts(displaySettings, bannedUserIds, bannedWords, posts);
 
-  // 残った投稿お掃除
-  const filteredPostElements = document.querySelectorAll('.post');
+  // // 残った投稿お掃除
+  // const filteredPostElements = document.querySelectorAll('.post');
 
-  filteredPostElements.forEach((post, count) => {
-    replaceIcons(post);
-    addBunButton(post);
-    replacePlacement(post, count);
-  });
+  // filteredPostElements.forEach((post, count) => {
+  //   replaceIcons(post);
+  //   addBunButton(post);
+  //   replacePlacement(post, count);
+  // });
 };
 
 self.addEventListener('DOMContentLoaded', insertPopupForm);
