@@ -3,7 +3,9 @@ import { BannedWords } from '../type/banWords.ts';
 const isDev = true;
 const adminBannedWords: BannedWords = [
   // '依存',
+  'スプラ',
   'valorant',
+  'valo',
   'FF14',
   'LOL',
   'LoL',
@@ -22,6 +24,11 @@ const adminBannedWords: BannedWords = [
   'あいさつ',
   '会議',
   'マッチョ',
+  'パートナー',
+  'いちゃいちゃ',
+  '潮吹き',
+  'チャット',
+  '家出',
 ];
 const allBannedWords: BannedWords = [
   'ぺい',

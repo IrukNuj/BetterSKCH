@@ -6,6 +6,7 @@
     "editor.defaultFormatter": "denoland.vscode-deno"
   },
   "cSpell.words": [
+    "arktype",
     "autopagerize",
     "AUTOPAGERIZER",
     "nekama",
