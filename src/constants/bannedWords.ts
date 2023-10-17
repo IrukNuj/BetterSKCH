@@ -29,6 +29,11 @@ const adminBannedWords: BannedWords = [
   '潮吹き',
   'チャット',
   '家出',
+  '男性',
+  '女性',
+  '女装',
+  'ドM',
+  'マゾ',
 ];
 const allBannedWords: BannedWords = [
   'ぺい',
