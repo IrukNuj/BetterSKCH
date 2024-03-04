@@ -43,12 +43,3 @@ export function saveDataToLocalStorage<T extends StorageData>(
 ) {
   localStorage.setItem(storageKey, JSON.stringify(data));
 }
-
-// const unBanUser = (id) => {
-//   const a = localStorage.getItem('bannedUsers');
-//   if (a === null) return;
-//   const c = JSON.parse(a).filter((b) => b !== id);
-//   localStorage.setItem('bannedUsers', JSON.stringify(c));
-// };
-
-// unBanUser('ここにユーザーIDを入れる');
