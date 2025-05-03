@@ -8,7 +8,7 @@ import { AllStorageData, StorageData, StorageKey } from './type/storage.ts';
 /**
  * 与えられたstorageKeyに対するdefaultDataを返す
  */
-const storageKeyToDefaultData = (key: StorageKey): StorageData | null => {
+const storageKeyToDefaultData = (key: StorageKey): StorageData  => {
   switch (key) {
     case STORAGE_KEY.DISPLAY_SETTINGS:
       return defaultDisplaySettings;
@@ -16,6 +16,8 @@ const storageKeyToDefaultData = (key: StorageKey): StorageData | null => {
       return defaultBannedUsers;
     case STORAGE_KEY.BANNED_WORDS:
       return defaultBannedWords;
+      default:
+      throw new Error(`Unknown storage key: ${key}`);
   }
 };
 
@@ -34,7 +36,8 @@ export function loadDataFromLocalStorage<T extends StorageKey>(
   storageKey: T,
 ): AllStorageData[T] {
   const data = localStorage.getItem(storageKey);
-  return data ? JSON.parse(data) : storageKeyToDefaultData(storageKey);
+  const marshaledData =  data ? JSON.parse(data) : null;
+  return marshaledData ?? storageKeyToDefaultData(storageKey);
 }
 
 export function saveDataToLocalStorage<T extends StorageData>(
